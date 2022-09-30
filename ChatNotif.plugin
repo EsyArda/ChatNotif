@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Plugin>
+    <Information>
+        <Name>ChatNotif</Name>
+        <Author>Esy</Author>
+        <Version>0.1.0</Version>
+        <Description>Chat notifications.</Description>
+        <Image>Esy/ChatNotif/resources/ring.tga</Image>
+    </Information>
+    <Package>Esy.ChatNotif.Main</Package>
+    <Configuration Apartment="Esy.ChatNotif" />
+</Plugin>
