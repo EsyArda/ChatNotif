@@ -5,16 +5,18 @@ import "Esy.ChatNotif.Callback";
 NotifWindow = class(Turbine.UI.Window);
 
 function NotifWindow:Constructor()
-
     -- Window
     Turbine.UI.Window.Constructor(self);
     self:SetSize(500, 100);
     self:SetPosition(SETTINGS.POSITION.X, SETTINGS.POSITION.Y);
     if SETTINGS.DEBUG then self:SetBackColor(Turbine.UI.Color(0.5, 0.18, 0.31, 0.31));
-    else end
+    end
     self:SetWantsKeyEvents(false);
-    self:SetMouseVisible(false);
+    self:SetMouseVisible(not SETTINGS.POSITION_LOCKED);
     self:SetVisible(true);
+    self.MouseDown = function (args)
+        Turbine.Shell.WriteLine("MouseDown " .. tostring(args))
+    end
 
     -- Text label
     self.Anounce = Turbine.UI.Label();
@@ -40,6 +42,11 @@ function NotifWindow:Constructor()
 
     -- On message received
     self.ChatReceived(self);
+end
+
+function NotifWindow:SetLock(lockState)
+    self:SetMouseVisible(not lockState);
+    SETTINGS.POSITION_LOCKED = lockState
 end
 
 function NotifWindow:DisplayMsg(msg, duration)

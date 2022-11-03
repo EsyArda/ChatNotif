@@ -106,10 +106,11 @@ function OptionsControl()
     lockPosition:SetPosition(xOffset, ypos);
     lockPosition:SetText("Lock position");
     lockPosition:SetBackColor(Turbine.UI.Color.DarkOrange);
-    -- lockPosition:SetChecked(SETTINGS.POSITION_LOCKED); -- TODO add to settings
+    lockPosition:SetChecked(SETTINGS.POSITION_LOCKED);
     lockPosition.CheckedChanged = function(sender, args)
         -- TODO
         Turbine.Shell.WriteLine("Lock position: " .. tostring(lockPosition:IsChecked()));
+        MyNotifWindow:SetLock(lockPosition:IsChecked());
     end
 
     ypos = ypos + boxHeight;
