@@ -22,8 +22,9 @@ function NotifWindow:Constructor()
     self.Anounce:SetSize(450, 100);
     self.Anounce:SetPosition(0, 0);
     self.Anounce:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+    self.Anounce:SetFont(Turbine.UI.Lotro.Font.TrajanProBold25);
+    self.Anounce:SetForeColor(Turbine.UI.Color.Azure);
     self.Anounce:SetFontStyle(Turbine.UI.FontStyle.Outline);
-    self.Anounce:SetFont(Turbine.UI.Lotro.Font.Verdana20);
     self.Anounce:SetVisible(false);
     self.Anounce:SetMarkupEnabled(true);
     self.Anounce:SetMouseVisible(false);
@@ -35,28 +36,27 @@ function NotifWindow:Constructor()
     local clearMsg = function()
         self:DisplayMsg("");
     end
-    AddCallback(DisplayTimer, "TimeReached", clearMsg)
+    AddCallback(DisplayTimer, "TimeReached", clearMsg);
 
     -- On message received
     self.ChatReceived(self);
 end
 
-function NotifWindow:DisplayMsg(msg)
+function NotifWindow:DisplayMsg(msg, duration)
+    if (duration ~= 0) then DisplayTimer:SetTime(duration, false) end
     self.Anounce:SetText(msg);
     self.Anounce:SetVisible(true);
     --timer puis setvisible(false);
 end
 
 function NotifWindow:ShouldDisplay(message)
+    -- Check if UI is hidden
     return SETTINGS.CHANNELS_ENABLED[message.ChatType];
 end
 
 function NotifWindow:ChatReceived()
     --- Lire les messages reçus
     Turbine.Chat.Received = function(sender, args)
-        -- Set the timer
-        DisplayTimer:SetTime(SETTINGS.MSG_TIME, false); -- time in seconds, repeat callback
-
         if (self:ShouldDisplay(args)) then
             local msg;
             if SETTINGS.DEBUG then
@@ -64,8 +64,7 @@ function NotifWindow:ChatReceived()
             else
                 msg = args.Message;
             end
-            self:DisplayMsg(msg)
+            self:DisplayMsg(msg, SETTINGS.MSG_TIME);
         end
-
     end
 end
