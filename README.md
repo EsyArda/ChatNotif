@@ -1,5 +1,7 @@
 # Chat Notif
 
+A simple plugin to display chat messages.
+
 ## To do
 
 - Options
@@ -22,3 +24,7 @@
   - ajout de plus de fonctionalités
 - Notification
   - Remove sent msg
+  - Msg duration based on the length of the text.
+  - Don't display if UI is hidden
+- README
+  - conventions d'écriture
