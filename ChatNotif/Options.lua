@@ -63,7 +63,6 @@ function OptionsControl()
     timerLabel:SetBackColor(Turbine.UI.Color.DarkGoldenrod);
     timerLabel:SetPosition(0, ypos);
     timerLabel:SetText("Notification timer");
-    ypos = ypos + boxHeight;
     
     -- local timerMenu = Turbine.UI.ContextMenu();
     -- local timerMenuItems = timerMenu:GetItems();
@@ -88,6 +87,8 @@ function OptionsControl()
         -- timerMenu:ShowMenu();
     end
 
+    ypos = ypos + boxHeight;
+
     -- Position
     local positionLabel = Turbine.UI.Label();
     positionLabel:SetParent(Options);
@@ -95,6 +96,22 @@ function OptionsControl()
     positionLabel:SetBackColor(Turbine.UI.Color.DarkBlue);
     positionLabel:SetPosition(0, ypos);
     positionLabel:SetText("Position");
+   
+    ypos = ypos + boxHeight;
+
+    -- Lock position
+    local lockPosition = Turbine.UI.Lotro.CheckBox();
+    lockPosition:SetParent(Options);
+    lockPosition:SetSize(boxWidth - xOffset, boxHeight);
+    lockPosition:SetPosition(xOffset, ypos);
+    lockPosition:SetText("Lock position");
+    lockPosition:SetBackColor(Turbine.UI.Color.DarkOrange);
+    -- lockPosition:SetChecked(SETTINGS.POSITION_LOCKED); -- TODO add to settings
+    lockPosition.CheckedChanged = function(sender, args)
+        -- TODO
+        Turbine.Shell.WriteLine("Lock position: " .. tostring(lockPosition:IsChecked()));
+    end
+
     ypos = ypos + boxHeight;
 
     -- TODO Position initiale des scrollbars
