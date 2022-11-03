@@ -12,10 +12,36 @@ function NotifWindow:Constructor()
     if SETTINGS.DEBUG then self:SetBackColor(Turbine.UI.Color(0.5, 0.18, 0.31, 0.31));
     end
     self:SetWantsKeyEvents(false);
-    self:SetMouseVisible(not SETTINGS.POSITION_LOCKED);
+    self:SetLock(SETTINGS.POSITION_LOCKED);
     self:SetVisible(true);
-    self.MouseDown = function (args)
-        Turbine.Shell.WriteLine("MouseDown " .. tostring(args))
+
+    -- Be able to move the window
+    local mousePositionBefore = nil;
+    local windowPositionBefore = nil;
+    local dragging = false;
+    self.MouseDown = function(args)
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("MouseDown " .. tostring(args)) end
+        mousePositionBefore = { Turbine.UI.Display.GetMousePosition(); }
+        windowPositionBefore = { self:GetPosition(); }
+        dragging = true;
+    end
+    self.MouseUp = function(args)
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("MouseUp " .. tostring(args)) end
+        dragging = false;
+    end
+    self.MouseMove = function(args)
+        if (dragging) then
+            local mouseBeforeX, mouseBeforeY = unpack(mousePositionBefore);
+            local mouseCurrentX, mouseCurrentY = Turbine.UI.Display.GetMousePosition();
+            local deltaX = mouseCurrentX - mouseBeforeX;
+            local deltaY = mouseCurrentY - mouseBeforeY;
+            local x, y = unpack(windowPositionBefore);
+            x = x + deltaX;
+            y = y + deltaY;
+            x = math.min(Turbine.UI.Display:GetWidth() - self:GetWidth(), math.max(0, x));
+            y = math.min(Turbine.UI.Display:GetHeight() - self:GetHeight(), math.max(0, y));
+            self:SetPosition(x, y);
+        end
     end
 
     -- Text label
@@ -45,6 +71,13 @@ function NotifWindow:Constructor()
 end
 
 function NotifWindow:SetLock(lockState)
+    if (not lockState) then
+        self:SetBackColor(Turbine.UI.Color(0.5, 0.18, 0.31, 0.31));
+    else
+        if (not SETTINGS.DEBUG) then
+            self:SetBackColor(Turbine.UI.Color.Transparent);
+        end
+    end
     self:SetMouseVisible(not lockState);
     SETTINGS.POSITION_LOCKED = lockState
 end
