@@ -2,6 +2,15 @@
 
 A simple plugin to display chat messages.
 
+## How to install ?
+
+## Install
+
+1. Create a new folder named `Esy` under your `The Lord of the Rings Online\Plugins\` folder (for example `C:\Users\USER\Documents\The Lord of the Rings Online\Plugins\Esy`)
+2. Download the source code from the last [release](https://github.com/LilianHiault/ChatNotif/releases)
+3. Decompress it in the `Esy` folder
+4. Launch the game and load `ChatNotif`
+
 ## To do
 
 - Options
