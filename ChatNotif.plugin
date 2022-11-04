@@ -3,9 +3,11 @@
     <Information>
         <Name>ChatNotif</Name>
         <Author>Esy</Author>
-        <Version>0.1.0</Version>
-        <Description>Chat notifications.</Description>
-        <Image>Esy/ChatNotif/resources/ring.tga</Image>
+        <Version>0.2.0</Version>
+        <Description>
+            A simple plugin to display chat messages. Visit https://github.com/LilianHiault/ChatNotif#readme for more information.
+        </Description>
+        <Image>Esy/ChatNotif/res/ring.tga</Image>
     </Information>
     <Package>Esy.ChatNotif.Main</Package>
     <Configuration Apartment="Esy.ChatNotif" />
