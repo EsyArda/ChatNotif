@@ -19,7 +19,7 @@ DEFAULT_SETTINGS = {
     };
     ["POSITION"] = {
         ["X"] = 735;
-        ["Y"] = 400;
+        ["Y"] = 320;
     };
     ["POSITION_LOCKED"] = true;
     ["DEBUG"] = false;
