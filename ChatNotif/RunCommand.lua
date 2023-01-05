@@ -50,21 +50,20 @@ function RunCommand:Execute(pluginCommand, argumentString)
 end
 
 function RunCommand:GetHelp()
-    Turbine.Shell.WriteLine("/chatnotif OR /cn\
-/chatnotif help --> Display this help\
-/chatnotif add {channel_number} --> Watch the channel {channel_number}\
-/chatnotif rm {channel_number} --> Remove the channel {channel_number}\
-/chatnotif list --> List channels\
-/chatnotif debug {on|off} --> Enable or disable debug");
+    Turbine.Shell.WriteLine("/cn help --> Display this help\
+/cn add {channel_number} --> Watch the channel {channel_number}\
+/cn rm {channel_number} --> Remove the channel {channel_number}\
+/cn list --> List channels\
+/cn debug {on|off} --> Enable or disable debug");
 end
 
 function RunCommand:ToggleDebug(newState)
-    Turbine.Shell.WriteLine(newState);
     if (newState == "on") then
         SETTINGS.DEBUG = true;
     elseif (newState == "off") then
         SETTINGS.DEBUG = false;
     end
+    Turbine.Shell.WriteLine("Debug is now " .. newState);
 end
 
 function RunCommand:AddChannel(channelNumber)

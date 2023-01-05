@@ -37,7 +37,7 @@ In the option pannel, you can unlock the window to move it and select the channe
   - [ ] Message duration based on the length of the text.
   - [ ] Don't display notifications if UI is hidden
 - Commands
-  - [ ] Better debug messages
+  - [x] ~~Better debug messages~~
 - README
   - [ ] Code conventions
 - [ ] New logo
