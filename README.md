@@ -22,10 +22,10 @@ In the option pannel, you can unlock the window to move it and select the channe
 ## Planned features
 
 - Options
-  - [x] Select channels
-  - [x] Lock / unlock option
-    - [x] Change the opacity of the window
-    - [x] Enable mouse drag to move
+  - [x] ~~Select channels~~
+  - [x] ~~Lock / unlock option~~
+    - [x] ~~Change the opacity of the window~~
+    - [x] ~~Enable mouse drag to move the window~~
   - [ ] Set notification duration
   - [ ] Set font size
   - [ ] Set font colour
@@ -40,4 +40,4 @@ In the option pannel, you can unlock the window to move it and select the channe
   - [ ] Better debug messages
 - README
   - [ ] Code conventions
-- [ ] New image
+- [ ] New logo
