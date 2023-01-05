@@ -45,16 +45,18 @@ function OptionsControl()
     for name, code in pairs(Turbine.ChatType) do
         if type(code) == "number" then
             -- Channel checkbox
-            channelsCheckbox[name] = Turbine.UI.Lotro.CheckBox();
-            channelsCheckbox[name]:SetParent(Options);
-            channelsCheckbox[name]:SetSize(boxWidth - xOffset, boxHeight);
-            channelsCheckbox[name]:SetPosition(xOffset, yPos);
-            channelsCheckbox[name]:SetFont(corpsFont);
-            channelsCheckbox[name]:SetText(name);
-            if SETTINGS.DEBUG then channelsCheckbox[name]:SetBackColor(Turbine.UI.Color.BlueViolet) end
-            channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, code));
-            channelsCheckbox[name].CheckedChanged = function(sender, args)
-                if channelsCheckbox[name]:IsChecked() then
+            channelsCheckbox[code] = Turbine.UI.Lotro.CheckBox();
+            channelsCheckbox[code]:SetParent(Options);
+            channelsCheckbox[code]:SetSize(boxWidth - xOffset, boxHeight);
+            channelsCheckbox[code]:SetPosition(xOffset, yPos);
+            channelsCheckbox[code]:SetFont(corpsFont);
+            local label;
+            if SETTINGS.DEBUG then label = code .. " - " .. name else label = name end;
+            channelsCheckbox[code]:SetText(label);
+            if SETTINGS.DEBUG then channelsCheckbox[code]:SetBackColor(Turbine.UI.Color.BlueViolet) end
+            channelsCheckbox[code]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, code));
+            channelsCheckbox[code].CheckedChanged = function(sender, args)
+                if channelsCheckbox[code]:IsChecked() then
                     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Added " .. name) end
                     AddToSet(SETTINGS.CHANNELS_ENABLED, code);
                 else
