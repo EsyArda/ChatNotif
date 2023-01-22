@@ -28,6 +28,7 @@ function NotifWindow:Constructor()
     self.MouseUp = function(args)
         if SETTINGS.DEBUG then Turbine.Shell.WriteLine("MouseUp " .. tostring(args)) end
         dragging = false;
+        SETTINGS.POSITION.X, SETTINGS.POSITION.Y = self:GetPosition();
     end
     self.MouseMove = function(args)
         if (dragging) then
