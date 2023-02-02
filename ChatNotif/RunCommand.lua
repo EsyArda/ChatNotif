@@ -1,13 +1,15 @@
+-- RunCommand
 import "Esy.ChatNotif.Set";
 
--- Message d'acceuil
+-- Welcome message
 Turbine.Shell.WriteLine("Welcome to Chat Notif! Run '/cn help' to list commands.");
 
--- Une CLI qui fonctionne
+-- Command line class
 RunCommand = class(Turbine.ShellCommand);
 
 function RunCommand:Execute(pluginCommand, argumentString)
 
+    -- Return help if no argument is given
     if ((argumentString == nil) or (string.len(argumentString) == 0)) then
         self:GetHelp();
         return;
@@ -23,18 +25,17 @@ function RunCommand:Execute(pluginCommand, argumentString)
 
     -- Extract the command and argument.
     local command = string.lower(args[1]);
-    -- local arg = argumentList[2];
 
-    -- Debug Mode
+    -- Display the command in the chat if debug is enabled
     if (SETTINGS.DEBUG) then
-        local a = "";
+        local argument = "";
         for _, arg in pairs(args) do
-            a = a .. " " .. arg
+            argument = argument .. " " .. arg
         end
-        Turbine.Shell.WriteLine("> /" .. pluginCommand .. a);
+        Turbine.Shell.WriteLine("> /" .. pluginCommand .. argument);
     end
 
-    -- Display help
+    -- Commands available
     if (command == "help") then
         self:GetHelp();
         return;
@@ -49,6 +50,7 @@ function RunCommand:Execute(pluginCommand, argumentString)
     end
 end
 
+-- Print the help
 function RunCommand:GetHelp()
     Turbine.Shell.WriteLine("/cn help --> Display this help\
 /cn add {channel_number} --> Watch the channel {channel_number}\
@@ -57,6 +59,7 @@ function RunCommand:GetHelp()
 /cn debug {on|off} --> Enable or disable debug");
 end
 
+-- Toggle debug on or off
 function RunCommand:ToggleDebug(newState)
     if (newState == "on") then
         SETTINGS.DEBUG = true;
@@ -66,6 +69,7 @@ function RunCommand:ToggleDebug(newState)
     Turbine.Shell.WriteLine("Debug is now " .. newState);
 end
 
+-- Add a channel from the list
 function RunCommand:AddChannel(channelNumber)
     local nb = tonumber(channelNumber)
     if nb ~= nil then
@@ -74,6 +78,7 @@ function RunCommand:AddChannel(channelNumber)
     end
 end
 
+-- Remove a channel from the list
 function RunCommand:RemoveChannel(channelNumber)
     local nb = tonumber(channelNumber)
     if nb ~= nil then
@@ -82,6 +87,7 @@ function RunCommand:RemoveChannel(channelNumber)
     end
 end
 
+-- List enabled channels
 function RunCommand:ListChannels()
     local channels = "";
     for index, channel in pairs(SETTINGS.CHANNELS_ENABLED) do
