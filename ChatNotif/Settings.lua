@@ -1,4 +1,6 @@
 -- Settings
+
+-- Default settings
 DEFAULT_SETTINGS = {
     ["MSG_TIME"] = 5;
     ["CHANNELS_ENABLED"] = {
@@ -25,11 +27,13 @@ DEFAULT_SETTINGS = {
     ["DEBUG"] = false;
 };
 
+-- Actual settings for the character
 SETTINGS = {};
 
 SettingsFileName = "Esy_ChatNotif_Settings";
 SettingsDataScope = Turbine.DataScope.Character;
 
+-- Load settings from the file
 function LoadSettings()
     local loadedSettings = Turbine.PluginData.Load(SettingsDataScope, SettingsFileName);
 
@@ -41,13 +45,14 @@ function LoadSettings()
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings Loaded") end
 end
 
+-- Save settings for the character in the file
 function SaveSettings()
     Turbine.PluginData.Save(SettingsDataScope, SettingsFileName, SETTINGS);
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings Saved") end
 end
 
+-- Register the function to save settings when the plugin is unloaded
 function RegisterForUnload()
-    -- Will save settings when the plugin is unloaded
     Turbine.Plugin.Unload = function(sender, args)
         SaveSettings();
     end

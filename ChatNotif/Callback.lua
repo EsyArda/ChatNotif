@@ -1,4 +1,4 @@
--- Garan
+-- From Garan
 -- https://forums.lotro.com/forums/showthread.php?468944-how-to-write-a-timer&p=6290840#post6290840
 
 function AddCallback(object, event, callback)
