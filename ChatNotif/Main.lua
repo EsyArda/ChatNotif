@@ -9,7 +9,7 @@ import "Esy.ChatNotif.Options";
 
 
 function Main()
-    LoadSettings()
+    LoadSettings();
     RegisterForUnload();
     Commands = RunCommand();
     Turbine.Shell.AddCommand("cn", Commands);

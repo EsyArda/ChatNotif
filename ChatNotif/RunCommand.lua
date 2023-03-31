@@ -7,6 +7,10 @@ Turbine.Shell.WriteLine("Welcome to Chat Notif! Run '/cn help' to list commands.
 -- Command line class
 RunCommand = class(Turbine.ShellCommand);
 
+function RunCommand:Constructor()
+    Turbine.ShellCommand.Constructor(self);
+end
+
 function RunCommand:Execute(pluginCommand, argumentString)
 
     -- Return help if no argument is given
