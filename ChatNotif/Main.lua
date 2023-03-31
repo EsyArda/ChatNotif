@@ -13,7 +13,6 @@ function Main()
     RegisterForUnload();
     Commands = RunCommand();
     Turbine.Shell.AddCommand("cn", Commands);
-    -- TO TEST Turbine.Shell.AddCommand("cn", RunCommand());
     MyNotifWindow = NotifWindow();
     OptionsControl();
 end
