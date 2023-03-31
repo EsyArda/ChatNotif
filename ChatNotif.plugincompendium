@@ -2,12 +2,13 @@
 <PluginConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Id>1208</Id>
   <Name>ChatNotif</Name>
-  <Version>1.1.0</Version>
+  <Version>1.1.1</Version>
   <Author>Esy</Author>
-  <InfoUrl>https://www.lotrointerface.com/downloads/info1208-ChatNotif.html</InfoUrl>
-  <DownloadUrl>https://www.lotrointerface.com/downloads/download1208-ChatNotif</DownloadUrl>
+  <InfoUrl>https://www.lotrointerface.com/downloads/info1208</InfoUrl>
+  <DownloadUrl>https://www.lotrointerface.com/downloads/download1208</DownloadUrl>
   <Descriptors>
     <descriptor>Esy\ChatNotif.plugin</descriptor>
   </Descriptors>
-  <Dependencies />
+  <Dependencies>
+  </Dependencies>
 </PluginConfig>
