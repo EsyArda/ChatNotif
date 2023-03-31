@@ -38,7 +38,6 @@ function RunCommand:Execute(pluginCommand, argumentString)
     -- Commands available
     if (command == "help") then
         self:GetHelp();
-        return;
     elseif (command == "debug") then
         self:ToggleDebug(string.lower(args[2]));
     elseif (command == "add") then
@@ -66,7 +65,7 @@ function RunCommand:ToggleDebug(newState)
     elseif (newState == "off") then
         SETTINGS.DEBUG = false;
     end
-    Turbine.Shell.WriteLine("Debug is now " .. newState);
+    Turbine.Shell.WriteLine("Debug is now " .. newState .. ". Please reload the UI.");
 end
 
 -- Add a channel from the list
@@ -74,7 +73,7 @@ function RunCommand:AddChannel(channelNumber)
     local nb = tonumber(channelNumber)
     if nb ~= nil then
         AddToSet(SETTINGS.CHANNELS_ENABLED, nb)
-        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("Added " .. nb) end
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("Added " .. nb .. " [" .. GetChatTypeName(nb) .."]") end
     end
 end
 
@@ -83,15 +82,28 @@ function RunCommand:RemoveChannel(channelNumber)
     local nb = tonumber(channelNumber)
     if nb ~= nil then
         RemoveFromSet(SETTINGS.CHANNELS_ENABLED, nb);
-        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("Removed " .. nb) end
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("Removed " .. nb .. " [" .. GetChatTypeName(nb) .."]") end
     end
 end
 
 -- List enabled channels
 function RunCommand:ListChannels()
-    local channels = "";
+    local channels = "Channels enabled :";
     for index, channel in pairs(SETTINGS.CHANNELS_ENABLED) do
-        if channel then channels = channels .. " " .. index end
+        if channel then channels = channels .. " " .. index .. "[" .. GetChatTypeName(index) .. "]," end
     end
     Turbine.Shell.WriteLine("> " .. channels)
+end
+
+-- Get the chat type name from the id
+function GetChatTypeName(chatTypeId)
+    local chatTypeName = "Unknown";
+    chatTypeId = (chatTypeId)
+    for key, value in pairs(Turbine.ChatType) do
+        if (type(value) == "number" and value == chatTypeId) then
+            chatTypeName = key;
+            break;
+        end
+    end
+    return chatTypeName;
 end
