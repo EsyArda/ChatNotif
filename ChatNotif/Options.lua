@@ -57,28 +57,30 @@ function OptionsControl()
 
     -- name is the name of the chat type and chatTypeNames[name] is it's number
     for _, name in ipairs(sortedKeys) do
-        -- Channel checkbox
-        channelsCheckbox[name] = Turbine.UI.Lotro.CheckBox();
-        channelsCheckbox[name]:SetParent(Options);
-        channelsCheckbox[name]:SetSize(boxWidth - leftMargin, boxHeight);
-        channelsCheckbox[name]:SetPosition(leftMargin, yPosition);
-        channelsCheckbox[name]:SetFont(corpsFont);
-        local label;
-        if SETTINGS.DEBUG then label = Turbine.ChatType[name] .. " - " .. name else label = name end;
-        channelsCheckbox[name]:SetText(label);
-        if SETTINGS.DEBUG then channelsCheckbox[name]:SetBackColor(Turbine.UI.Color.BlueViolet) end
-        channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]));
-        channelsCheckbox[name].CheckedChanged = function(sender, args)
-            if channelsCheckbox[name]:IsChecked() then
-                if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Added " .. name) end
-                AddToSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
-            else
-                if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Removed " .. name) end
-                RemoveFromSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
+        if(type(Turbine.ChatType[name]) == "number") then
+            -- Channel checkbox
+            channelsCheckbox[name] = Turbine.UI.Lotro.CheckBox();
+            channelsCheckbox[name]:SetParent(Options);
+            channelsCheckbox[name]:SetSize(boxWidth - leftMargin, boxHeight);
+            channelsCheckbox[name]:SetPosition(leftMargin, yPosition);
+            channelsCheckbox[name]:SetFont(corpsFont);
+            local label;
+            if SETTINGS.DEBUG then label = Turbine.ChatType[name] .. " - " .. name else label = name end;
+            channelsCheckbox[name]:SetText(label);
+            if SETTINGS.DEBUG then channelsCheckbox[name]:SetBackColor(Turbine.UI.Color.BlueViolet) end
+            channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]));
+            channelsCheckbox[name].CheckedChanged = function(sender, args)
+                if channelsCheckbox[name]:IsChecked() then
+                    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Added " .. name) end
+                    AddToSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
+                else
+                    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Removed " .. name) end
+                    RemoveFromSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
+                end
             end
+            -- Update Y position
+            yPosition = yPosition + boxHeight;
         end
-        -- Update Y position
-        yPosition = yPosition + boxHeight;
     end
     yPosition = yPosition+ yOffset;
 
