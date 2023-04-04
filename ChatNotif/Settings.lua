@@ -3,6 +3,7 @@
 -- Default settings
 DEFAULT_SETTINGS = {
     ["MSG_TIME"] = 0.10;
+    ["MSG_TIME_MAX"] = 10;
     ["CHANNELS_ENABLED"] = {
         [6] = true,
         [11] = true,
@@ -44,6 +45,10 @@ function LoadSettings()
         if (SETTINGS.MSG_TIME ~= nil and SETTINGS.MSG_TIME > 2) then
             if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. SETTINGS.MSG_TIME .. " to " .. DEFAULT_SETTINGS.MSG_TIME) end
             SETTINGS.MSG_TIME = DEFAULT_SETTINGS.MSG_TIME;
+        end
+        
+        if (SETTINGS.MSG_TIME_MAX == nil) then
+            SETTINGS.MSG_TIME_MAX = DEFAULT_SETTINGS.MSG_TIME_MAX;
         end
     else
         SETTINGS = DEFAULT_SETTINGS;

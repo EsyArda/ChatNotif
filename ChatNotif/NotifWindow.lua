@@ -110,7 +110,7 @@ function NotifWindow:ChatReceived()
             local msg;
             if SETTINGS.DEBUG then msg = "[" .. args.ChatType .. "] " .. args.Message;
             else msg = args.Message end
-            local duration = SETTINGS.MSG_TIME * #msg;
+            local duration = math.min(SETTINGS.MSG_TIME * #msg, SETTINGS.MSG_TIME_MAX);
             self:DisplayMsg(msg, duration);
         end
     end
