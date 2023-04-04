@@ -90,6 +90,7 @@ function OptionsControl()
     timerScrollBar:SetPosition(leftMargin, yPos);
     timerScrollBar:SetOrientation(Turbine.UI.Orientation.Horizontal);
     timerScrollBar:SetSize(scrollBarWidth, scrollBarHeight);
+    timerScrollBar:SetValue(SETTINGS.MSG_TIME);
     timerScrollBar.ValueChanged = function(sender, args)
         local value = timerScrollBar:GetValue();
         if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Timer value: " .. value) end
