@@ -25,18 +25,16 @@ In the option pannel, you can unlock the window to move it and select the channe
   - [x] ~~Lock / unlock option~~
     - [x] ~~Change the opacity of the window~~
     - [x] ~~Enable mouse drag to move the window~~
-  - [ ] Set notification duration
+  - [x] ~~Set notification duration~~
   - [ ] Set font size
   - [ ] Set font colour
   - [ ] Save settings by character/server/account
-  - [ ] Sort channels in the channel list
+  - [x] ~~Sort channels in the channel list~~
 - Notification window
   - [ ] Fade in and out
   - [ ] Don't display messages sent by the player
-  - [ ] Message duration based on the length of the text.
+  - [x] ~~Message duration based on the length of the text.~~
   - [ ] Don't display notifications if UI is hidden
 - Commands
   - [x] ~~Better debug messages~~
-- README
-  - [ ] Code conventions
 - [ ] New logo
