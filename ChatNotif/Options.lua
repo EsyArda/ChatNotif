@@ -2,8 +2,10 @@ function OptionsControl()
     -- Pixel values
     local boxHeight = 20;
     local boxWidth = 320;
-    local xOffset = 20;
-    local yMargin = 10;
+    local leftMargin = 20;
+    local yOffset = 10;
+    local scrollBarWidth = boxWidth/2;
+    local scrollBarHeight = 10;
 
     -- Fonts
     local headerFont = Turbine.UI.Lotro.Font.VerdanaBold16;
@@ -16,10 +18,10 @@ function OptionsControl()
 
     local yPos = 0;
 
-    -- Lock position
+    -- ##### Lock position #####
     local lockPosition = Turbine.UI.Lotro.CheckBox();
     lockPosition:SetParent(Options);
-    lockPosition:SetSize(boxWidth - xOffset, boxHeight);
+    lockPosition:SetSize(boxWidth - leftMargin, boxHeight);
     lockPosition:SetPosition(0, yPos);
     lockPosition:SetFont(headerFont);
     lockPosition:SetText("Lock window position");
@@ -28,9 +30,9 @@ function OptionsControl()
     lockPosition.CheckedChanged = function(sender, args)
         MyNotifWindow:SetLock(lockPosition:IsChecked());
     end
-    yPos = yPos + lockPosition:GetHeight() + yMargin;
+    yPos = yPos + lockPosition:GetHeight() + yOffset;
 
-    -- Channel choice
+    -- ##### Channel choice #####
     local channelsLabel = Turbine.UI.Label();
     channelsLabel:SetParent(Options);
     channelsLabel:SetSize(boxWidth, boxHeight);
@@ -47,8 +49,8 @@ function OptionsControl()
             -- Channel checkbox
             channelsCheckbox[code] = Turbine.UI.Lotro.CheckBox();
             channelsCheckbox[code]:SetParent(Options);
-            channelsCheckbox[code]:SetSize(boxWidth - xOffset, boxHeight);
-            channelsCheckbox[code]:SetPosition(xOffset, yPos);
+            channelsCheckbox[code]:SetSize(boxWidth - leftMargin, boxHeight);
+            channelsCheckbox[code]:SetPosition(leftMargin, yPos);
             channelsCheckbox[code]:SetFont(corpsFont);
             local label;
             if SETTINGS.DEBUG then label = code .. " - " .. name else label = name end;
@@ -68,28 +70,35 @@ function OptionsControl()
             yPos = yPos + boxHeight;
         end
     end
-    yPos = yPos+ yMargin;
+    yPos = yPos+ yOffset;
 
-    -- Font size
-    local fontSizeLabel = Turbine.UI.Label();
-    fontSizeLabel:SetParent(Options);
-    fontSizeLabel:SetSize(boxWidth, boxHeight);
-    if SETTINGS.DEBUG then fontSizeLabel:SetBackColor(Turbine.UI.Color.DarkGreen) end
-    fontSizeLabel:SetPosition(0, yPos);
-    fontSizeLabel:SetFont(headerFont);
-    fontSizeLabel:SetText("[In a future update] Select font size");
-    fontSizeLabel:SetVisible(false); -- TODO
-    yPos = yPos + boxHeight;
 
-    -- Notif timer
+    -- ##### Notif timer #####
     local timerLabel = Turbine.UI.Label();
     timerLabel:SetParent(Options);
     timerLabel:SetSize(boxWidth, boxHeight);
     if SETTINGS.DEBUG then timerLabel:SetBackColor(Turbine.UI.Color.DarkGoldenrod) end
     timerLabel:SetPosition(0, yPos);
     timerLabel:SetFont(headerFont);
-    timerLabel:SetText("[In a future update] Notification duration");
-    timerLabel:SetVisible(false); -- TODO
+    timerLabel:SetText("Notification duration : " .. SETTINGS.MSG_TIME .. "s");
+    timerLabel:SetVisible(true);
+    yPos = yPos + boxHeight;
+
+    -- Timer scroll bar
+    local timerScrollBar = Turbine.UI.Lotro.ScrollBar();
+    timerScrollBar:SetParent(Options);
+    timerScrollBar:SetPosition(leftMargin, yPos);
+    timerScrollBar:SetOrientation(Turbine.UI.Orientation.Horizontal);
+    timerScrollBar:SetSize(scrollBarWidth, scrollBarHeight);
+    timerScrollBar.ValueChanged = function(sender, args)
+        local value = timerScrollBar:GetValue();
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Timer value: " .. value) end
+        SETTINGS.MSG_TIME = value;
+        timerLabel:SetText("Notification duration : " .. SETTINGS.MSG_TIME .. "s");
+    end
+    yPos = yPos + scrollBarHeight;
+
+    -- Timer context menu
 
     -- local timerMenu = Turbine.UI.ContextMenu();
     -- local timerMenuItems = timerMenu:GetItems();
@@ -110,10 +119,22 @@ function OptionsControl()
     timerButton:SetPosition(boxWidth, yPos);
     timerButton:SetWidth(100);
     timerButton:SetText("Set time");
-    timerButton:SetVisible(false); -- TODO
+    timerButton:SetVisible(true);
     timerButton.Click = function(sender, args)
-        -- timerMenu:ShowMenu();
+       -- timerMenu:ShowMenu();
     end
+    yPos = yPos + boxHeight;
+
+    
+    -- ##### Font size #####
+    local fontSizeLabel = Turbine.UI.Label();
+    fontSizeLabel:SetParent(Options);
+    fontSizeLabel:SetSize(boxWidth, boxHeight);
+    if SETTINGS.DEBUG then fontSizeLabel:SetBackColor(Turbine.UI.Color.DarkGreen) end
+    fontSizeLabel:SetPosition(0, yPos);
+    fontSizeLabel:SetFont(headerFont);
+    fontSizeLabel:SetText("[In a future update] Select font size");
+    fontSizeLabel:SetVisible(false); -- TODO
     yPos = yPos + boxHeight;
 
     Options:SetSize(2 * boxWidth, yPos);

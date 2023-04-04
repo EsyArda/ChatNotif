@@ -3,7 +3,7 @@
     <Information>
         <Name>ChatNotif</Name>
         <Author>Esy</Author>
-        <Version>1.1.1</Version>
+        <Version>1.2.0-dev</Version>
         <Description>
             A simple plugin to display chat messages. Visit https://github.com/LilianHiault/ChatNotif#readme for more information.
         </Description>
