@@ -9,7 +9,9 @@ NotifWindow = class(Turbine.UI.Window); -- Inherit from Turbine.UI.Window
 function NotifWindow:Constructor()
     -- Turbin Window fields
     Turbine.UI.Window.Constructor(self);
-    self:SetSize(500, 100);
+    local WINDOW_WIDTH = 500;
+    local WINDOW_HEIGHT = 500;
+    self:SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     self:SetPosition(SETTINGS.POSITION.X, SETTINGS.POSITION.Y);
     if SETTINGS.DEBUG then self:SetBackColor(Turbine.UI.Color(0.5, 0.18, 0.31, 0.31)) end
     self:SetWantsKeyEvents(false);
@@ -52,9 +54,9 @@ function NotifWindow:Constructor()
     -- Text label
     self.Anounce = Turbine.UI.Label();
     self.Anounce:SetParent(self);
-    self.Anounce:SetSize(450, 100);
+    self.Anounce:SetSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     self.Anounce:SetPosition(0, 0);
-    self.Anounce:SetTextAlignment(Turbine.UI.ContentAlignment.MiddleCenter);
+    self.Anounce:SetTextAlignment(Turbine.UI.ContentAlignment.TopCenter);
     self.Anounce:SetFont(Turbine.UI.Lotro.Font.TrajanProBold25);
     self.Anounce:SetForeColor(Turbine.UI.Color.Azure);
     self.Anounce:SetFontStyle(Turbine.UI.FontStyle.Outline);
@@ -106,12 +108,10 @@ function NotifWindow:ChatReceived()
     Turbine.Chat.Received = function(sender, args)
         if (self:ShouldDisplay(args)) then
             local msg;
-            if SETTINGS.DEBUG then
-                msg = "[" .. args.ChatType .. "] " .. args.Message;
-            else
-                msg = args.Message;
-            end
-            self:DisplayMsg(msg, SETTINGS.MSG_TIME);
+            if SETTINGS.DEBUG then msg = "[" .. args.ChatType .. "] " .. args.Message;
+            else msg = args.Message end
+            local duration = math.min(SETTINGS.MSG_TIME * #msg, SETTINGS.MSG_TIME_MAX);
+            self:DisplayMsg(msg, duration);
         end
     end
 end
