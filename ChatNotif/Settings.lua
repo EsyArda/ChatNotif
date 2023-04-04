@@ -2,7 +2,7 @@
 
 -- Default settings
 DEFAULT_SETTINGS = {
-    ["MSG_TIME"] = 0.15;
+    ["MSG_TIME"] = 0.10;
     ["CHANNELS_ENABLED"] = {
         [6] = true,
         [11] = true,
