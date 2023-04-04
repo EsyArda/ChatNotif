@@ -106,12 +106,10 @@ function NotifWindow:ChatReceived()
     Turbine.Chat.Received = function(sender, args)
         if (self:ShouldDisplay(args)) then
             local msg;
-            if SETTINGS.DEBUG then
-                msg = "[" .. args.ChatType .. "] " .. args.Message;
-            else
-                msg = args.Message;
-            end
-            self:DisplayMsg(msg, SETTINGS.MSG_TIME);
+            if SETTINGS.DEBUG then msg = "[" .. args.ChatType .. "] " .. args.Message;
+            else msg = args.Message end
+            local duration = SETTINGS.MSG_TIME * #msg;
+            self:DisplayMsg(msg, duration);
         end
     end
 end
