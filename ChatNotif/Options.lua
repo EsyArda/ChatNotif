@@ -104,34 +104,7 @@ function OptionsControl()
     end
     yPosition = yPosition + scrollBarHeight;
 
-    -- Timer context menu
-
-    -- local timerMenu = Turbine.UI.ContextMenu();
-    -- local timerMenuItems = timerMenu:GetItems();
-    -- for i = 1, 10 do
-    --     timerMenuItems:Add(Turbine.UI.MenuItem(tostring(i)));
-    -- end
-    -- for i = 1, timerMenuItems:GetCount() do
-    --     local timerMenuItem = timerMenuItems:Get(i);
-    --     local timerItemText = timerMenuItems:GetText();
-    --     if ( timerItemText == self.selectedItem ) then
-    -- 		timerMenuItems:SetChecked( true );
-    -- 		timerMenuItems:SetEnabled( false );
-    -- 	end
-    -- end
-
-    local timerButton = Turbine.UI.Lotro.Button();
-    timerButton:SetParent(Options);
-    timerButton:SetPosition(boxWidth, yPosition);
-    timerButton:SetWidth(100);
-    timerButton:SetText("Set time");
-    timerButton:SetVisible(true);
-    timerButton.Click = function(sender, args)
-       -- timerMenu:ShowMenu();
-    end
-    yPosition = yPosition + boxHeight;
-
-    
+  
     -- ##### Font size #####
     local fontSizeLabel = Turbine.UI.Label();
     fontSizeLabel:SetParent(Options);
