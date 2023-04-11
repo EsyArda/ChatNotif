@@ -1,3 +1,5 @@
+import "Esy.ChatNotif.VindarPatch";
+
 -- Settings
 
 -- Default settings
@@ -36,7 +38,8 @@ SettingsDataScope = Turbine.DataScope.Character;
 
 -- Load settings from the file
 function LoadSettings()
-    local loadedSettings = Turbine.PluginData.Load(SettingsDataScope, SettingsFileName);
+    -- local loadedSettings = Turbine.PluginData.Load(SettingsDataScope, SettingsFileName);
+    local loadedSettings = PatchDataLoad(SettingsDataScope, SettingsFileName);
 
     if (type(loadedSettings) == 'table') then
         SETTINGS = loadedSettings;
@@ -58,7 +61,8 @@ end
 
 -- Save settings for the character in the file
 function SaveSettings()
-    Turbine.PluginData.Save(SettingsDataScope, SettingsFileName, SETTINGS);
+    -- Turbine.PluginData.Save(SettingsDataScope, SettingsFileName, SETTINGS);
+    PatchDataSave(SettingsDataScope, SettingsFileName, SETTINGS);
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings Saved") end
 end
 
