@@ -18,6 +18,8 @@ In the option pannel, you can unlock the window to move it and select the channe
 
 ![The option pannel](./ChatNotif/res/options.jpg)
 
+You can change the duration of the text in the options window.
+
 ## Planned features
 
 - Options
