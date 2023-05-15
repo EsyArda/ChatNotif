@@ -7,7 +7,7 @@ import "Esy.ChatNotif.Callback";
 NotifWindow = class(Turbine.UI.Window); -- Inherit from Turbine.UI.Window
 
 function NotifWindow:Constructor()
-    -- Turbin Window fields
+    -- Turbine Window fields
     Turbine.UI.Window.Constructor(self);
     local WINDOW_WIDTH = 500;
     local WINDOW_HEIGHT = 500;
@@ -17,6 +17,20 @@ function NotifWindow:Constructor()
     self:SetWantsKeyEvents(false);
     self:SetLock(SETTINGS.POSITION_LOCKED);
     self:SetVisible(true);
+
+
+
+    -- Hide the window when the UI is hidden    
+    self:SetWantsKeyEvents(true);
+    self.KeyDown = function(sender, args)
+        if (args.Action == Turbine.UI.Lotro.Action.Escape) then
+            self:SetVisible(true);
+        elseif (args.Action == 268435635) then
+            self:SetVisible(not self:IsVisible());
+        end
+    end
+
+
 
     -- Ability to move the window when unlocked
     local mousePositionBefore = nil;
