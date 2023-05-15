@@ -44,7 +44,7 @@ function LoadSettings()
     if (type(loadedSettings) == 'table') then
         SETTINGS = loadedSettings;
 
-        -- Transition from older versions
+        -- Migrate settings from version 1.1.1 to 1.2.0
         if (SETTINGS.MSG_TIME ~= nil and SETTINGS.MSG_TIME > 2) then
             if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. SETTINGS.MSG_TIME .. " to " .. DEFAULT_SETTINGS.MSG_TIME) end
             SETTINGS.MSG_TIME = DEFAULT_SETTINGS.MSG_TIME;
