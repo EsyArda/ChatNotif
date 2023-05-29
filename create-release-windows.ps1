@@ -8,5 +8,7 @@ New-Item -Type Directory .\tmp\Esy\ChatNotif\res > $null
 Copy-Item .\ChatNotif\res\ring.tga .\tmp\Esy\ChatNotif\res\
 Write-Output "See https://github.com/LilianHiault/ChatNotif/blob/main/README.md for more info." > .\tmp\Esy\ChatNotif\README.txt
 Copy-Item .\LICENSE.md .\tmp\Esy\ChatNotif
-Compress-Archive -LiteralPath .\tmp\Esy\ -DestinationPath Esy-ChatNotif-X.Y.Z.zip
+# Git tag
+$latestTag = git describe --tags --abbrev=0
+Compress-Archive -LiteralPath .\tmp\Esy\ -DestinationPath Esy-ChatNotif-$latestTag.zip
 Remove-Item -Recurse .\tmp\
