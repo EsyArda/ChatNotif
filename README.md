@@ -28,15 +28,16 @@ You can change the duration of the text in the options window.
     - [x] ~~Change the opacity of the window~~
     - [x] ~~Enable mouse drag to move the window~~
   - [x] ~~Set notification duration~~
+  - [x] ~~Sort channels in the channel list~~
   - [ ] Set font size
   - [ ] Set font colour
   - [ ] Save settings by character/server/account
-  - [x] ~~Sort channels in the channel list~~
+  - [ ] Option to hide messages sent by the player
 - Notification window
-  - [ ] Fade in and out
-  - [ ] Don't display messages sent by the player
   - [x] ~~Message duration based on the length of the text.~~
-  - [ ] Don't display notifications if UI is hidden
+  - [x] Don't display notifications if UI is hidden
+  - [ ] Fade in and out
+  - [ ] Font color based on chat options colors
 - Commands
   - [x] ~~Better debug messages~~
 - [ ] New logo
