@@ -7,7 +7,7 @@
         <Description>
             A simple plugin to display chat messages. Visit https://github.com/LilianHiault/ChatNotif#readme for more information.
         </Description>
-        <Image>Esy/ChatNotif/res/ring.tga</Image>
+        <Image>Esy/ChatNotif/res/logo.tga</Image>
     </Information>
     <Package>Esy.ChatNotif.Main</Package>
     <Configuration Apartment="Esy.ChatNotif" />
