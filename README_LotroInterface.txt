@@ -26,11 +26,13 @@ The source code is available here: [URL="https://github.com/LilianHiault/ChatNot
 Full change logs at [URL="https://github.com/LilianHiault/ChatNotif/releases"]https://github.com/LilianHiault/ChatNotif/releases[/URL].
 
 [LIST]
-[*] Version 1.4.0: New icon added, the license is included in the LotroInterface release
-[*] Version 1.3.0: Does not display notifications when the UI is hidden
-[*] Version 1.2.2: Fixed an error when loading settings on French and German clients
-[*] Version 1.2.1: Channels are now correctly sorted by name in the option panel
-[*] Version 1.2.0: Change notification duration
-[*] Version 1.1.1: Improved command line
-[*] Version 1.1.0: Window position is now saved in settings, added support for Plugin Compendium
+[*] Version 1.4.1: The icon is now displayed correctly.
+[*] Version 1.4.0: New icon added, the license is included in the LotroInterface release.
+[*] Version 1.3.0: Does not display notifications when the UI is hidden.
+[*] Version 1.2.2: Fixed an error when loading settings on French and German clients.
+[*] Version 1.2.1: Channels are now correctly sorted by name in the option panel.
+[*] Version 1.2.0: Change notification duration.
+[*] Version 1.1.1: Improved command line.
+[*] Version 1.1.0: Window position is now saved in settings, added support for Plugin Compendium.
+[*] Version 1.0.0: Initial release.
 [/LIST]
