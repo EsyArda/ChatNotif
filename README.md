@@ -4,7 +4,7 @@ A simple LOTRO plugin for displaying chat messages larger on your screen.
 
 ## Installation guide
 
-1. Download the latest release from [Github](https://github.com/LilianHiault/ChatNotif/releases/latest) of [lotroInterface](https://www.lotrointerface.com/downloads/info1208).
+1. Download the latest release from [Github](https://github.com/EsyArda/ChatNotif/releases/latest) of [lotroInterface](https://www.lotrointerface.com/downloads/info1208).
 2. Unzip the content of the zip file to your `The Lord of the Rings Online\Plugins\` folder (for example `C:\Users\USER\Documents\The Lord of the Rings Online\Plugins\`).
 3. Launch the game, open the plugin manager and load `ChatNotif`.
 
