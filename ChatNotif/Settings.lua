@@ -28,42 +28,68 @@ DEFAULT_SETTINGS = {
     };
     ["POSITION_LOCKED"] = true;
     ["DEBUG"] = false;
+    ["ACCOUNT_WIDE_SETTINGS"] = false;
 };
 
 -- Actual settings for the character
 SETTINGS = {};
 
-SettingsFileName = "Esy_ChatNotif_Settings";
-SettingsDataScope = Turbine.DataScope.Character;
+local settingsFileName = "Esy_ChatNotif_Settings";
+local settingsCharacter = {};
+local settingsAccount = {};
+
+-- Function to check if settings are valid and migrate them from anterior versions
+function CheckSettings(loadedSettings)
+    local settings;
+    if (type(loadedSettings) == 'table') then
+        settings = loadedSettings;
+
+        -- Migrate settings from version 1.1.1 to 1.2.0
+        if (settings.MSG_TIME ~= nil and settings.MSG_TIME > 2) then
+            if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. DEFAULT_SETTINGS.MSG_TIME) end
+            settings.MSG_TIME = DEFAULT_SETTINGS.MSG_TIME;
+        end
+        
+        if (settings.MSG_TIME_MAX == nil) then
+            settings.MSG_TIME_MAX = DEFAULT_SETTINGS.MSG_TIME_MAX;
+        end
+    else
+        settings = DEFAULT_SETTINGS;
+    end
+
+    if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: checked") end
+
+    return settings;
+end
+
 
 -- Load settings from the file
 function LoadSettings()
-    -- local loadedSettings = Turbine.PluginData.Load(SettingsDataScope, SettingsFileName);
-    local loadedSettings = PatchDataLoad(SettingsDataScope, SettingsFileName);
-
-    if (type(loadedSettings) == 'table') then
-        SETTINGS = loadedSettings;
-
-        -- Migrate settings from version 1.1.1 to 1.2.0
-        if (SETTINGS.MSG_TIME ~= nil and SETTINGS.MSG_TIME > 2) then
-            if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. SETTINGS.MSG_TIME .. " to " .. DEFAULT_SETTINGS.MSG_TIME) end
-            SETTINGS.MSG_TIME = DEFAULT_SETTINGS.MSG_TIME;
-        end
-        
-        if (SETTINGS.MSG_TIME_MAX == nil) then
-            SETTINGS.MSG_TIME_MAX = DEFAULT_SETTINGS.MSG_TIME_MAX;
-        end
-    else
-        SETTINGS = DEFAULT_SETTINGS;
+    -- Always load account settings
+    settingsAccount = CheckSettings(PatchDataLoad(Turbine.DataScope.Account, settingsFileName));
+    SETTINGS = settingsAccount;
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded account settings") end
+    
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded character settings") end
+    
+    
+    -- If account wide settings are disabled, load character settings
+    if not SETTINGS.ACCOUNT_WIDE_SETTINGS then
+        settingsCharacter = CheckSettings(PatchDataLoad(Turbine.DataScope.Character, settingsFileName));
+        SETTINGS = settingsCharacter;
     end
-    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings Loaded") end
 end
 
 -- Save settings for the character in the file
 function SaveSettings()
-    -- Turbine.PluginData.Save(SettingsDataScope, SettingsFileName, SETTINGS);
-    PatchDataSave(SettingsDataScope, SettingsFileName, SETTINGS);
-    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings Saved") end
+
+    -- Always save settings for the character and account
+    PatchDataSave(Turbine.DataScope.Character, settingsFileName, SETTINGS);
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Saved character settings") end
+    
+    -- Save account settings
+    PatchDataSave(Turbine.DataScope.Account, settingsFileName, SETTINGS);
+    Turbine.Shell.WriteLine("> Settings: Saved account settings");
 end
 
 -- Register the function to save settings when the plugin is unloaded
