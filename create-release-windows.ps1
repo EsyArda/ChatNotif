@@ -6,7 +6,7 @@ New-Item -Type Directory .\tmp\Esy\ChatNotif > $null
 Copy-Item .\ChatNotif\*.lua .\tmp\Esy\ChatNotif\
 New-Item -Type Directory .\tmp\Esy\ChatNotif\res > $null
 Copy-Item .\ChatNotif\res\icon.tga .\tmp\Esy\ChatNotif\res\
-Write-Output "See https://github.com/LilianHiault/ChatNotif/blob/main/README.md for more info." > .\tmp\Esy\ChatNotif\README.txt
+Write-Output "See https://github.com/EsyArda/ChatNotif/blob/main/README.md for more info." > .\tmp\Esy\ChatNotif\README.txt
 Copy-Item .\LICENSE.md .\tmp\Esy\ChatNotif
 # Git tag
 $latestTag = git describe --tags --abbrev=0

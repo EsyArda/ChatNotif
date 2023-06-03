@@ -21,7 +21,7 @@ function OptionsControl()
     -- ##### Lock position #####
     local lockPosition = Turbine.UI.Lotro.CheckBox();
     lockPosition:SetParent(Options);
-    lockPosition:SetSize(boxWidth - leftMargin, boxHeight);
+    lockPosition:SetSize(boxWidth, boxHeight);
     lockPosition:SetPosition(0, yPosition);
     lockPosition:SetFont(headerFont);
     lockPosition:SetText("Lock window position");
@@ -114,9 +114,40 @@ function OptionsControl()
         SETTINGS.MSG_TIME = value / 100;
         timerLabel:SetText("Notification duration : " .. SETTINGS.MSG_TIME .. "s per character");
     end
-    yPosition = yPosition + scrollBarHeight;
+    yPosition = yPosition + scrollBarHeight + yOffset;
 
-  
+
+
+
+
+    -- ##### Account wide settings #####
+    local accountWideCheckBox = Turbine.UI.Lotro.CheckBox();
+    accountWideCheckBox:SetParent(Options);
+    accountWideCheckBox:SetSize(boxWidth, 2*boxHeight);
+    accountWideCheckBox:SetPosition(0, yPosition);
+    accountWideCheckBox:SetFont(headerFont);
+    accountWideCheckBox:SetText("Save settings account wide (update on logout)");
+    if SETTINGS.DEBUG then accountWideCheckBox:SetBackColor(Turbine.UI.Color.RoyalBlue) end
+    accountWideCheckBox:SetChecked(SETTINGS.ACCOUNT_WIDE_SETTINGS);
+    accountWideCheckBox.CheckedChanged = function(sender, args)
+        SETTINGS.ACCOUNT_WIDE_SETTINGS = accountWideCheckBox:IsChecked();
+         if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Options: Account wide settings set to " .. tostring(SETTINGS.ACCOUNT_WIDE_SETTINGS)) end
+
+    end
+    yPosition = yPosition + accountWideCheckBox:GetHeight() + yOffset;
+
+
+    -- ##### Command help label #####
+    local commandsLabel = Turbine.UI.Label();
+    commandsLabel:SetParent(Options);
+    commandsLabel:SetSize(boxWidth, 2*boxHeight);
+    if SETTINGS.DEBUG then commandsLabel:SetBackColor(Turbine.UI.Color.YellowGreen) end
+    commandsLabel:SetFont(corpsFont);
+    commandsLabel:SetPosition(0, yPosition);
+    commandsLabel:SetText("Type '/cn help' in the chat window to see all commands");
+    yPosition = yPosition + commandsLabel:GetHeight() + yOffset;
+
+
     -- ##### Font size #####
     local fontSizeLabel = Turbine.UI.Label();
     fontSizeLabel:SetParent(Options);

@@ -2,7 +2,7 @@
 
 A simple LOTRO plugin for displaying chat messages larger on your screen.
 
-The source code is available here: [URL="https://github.com/LilianHiault/ChatNotif/"]https://github.com/LilianHiault/ChatNotif/[/URL].
+The source code is available here: [URL="https://github.com/EsyArda/ChatNotif/"]https://github.com/EsyArda/ChatNotif/[/URL].
 
 [SIZE="5"]Installation guide[/SIZE]
 
@@ -23,9 +23,11 @@ The source code is available here: [URL="https://github.com/LilianHiault/ChatNot
 
 [SIZE="5"]Versions[/SIZE]
 
-Full change logs at [URL="https://github.com/LilianHiault/ChatNotif/releases"]https://github.com/LilianHiault/ChatNotif/releases[/URL].
+Full change logs at [URL="https://github.com/EsyArda/ChatNotif/releases"]https://github.com/EsyArda/ChatNotif/releases[/URL].
 
 [LIST]
+[*] Version 1.5.0: Added a new option to save an load settings account wide.
+[*] Version 1.4.1-1: Corrected the LotroInterface download file.
 [*] Version 1.4.1: The icon is now displayed correctly.
 [*] Version 1.4.0: New icon added, the license is included in the LotroInterface release.
 [*] Version 1.3.0: Does not display notifications when the UI is hidden.

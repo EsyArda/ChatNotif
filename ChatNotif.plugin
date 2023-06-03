@@ -3,9 +3,9 @@
     <Information>
         <Name>ChatNotif</Name>
         <Author>Esy</Author>
-        <Version>1.4.1</Version>
+        <Version>1.5.0</Version>
         <Description>
-            A simple plugin to display chat messages. Visit https://github.com/LilianHiault/ChatNotif#readme for more information.
+            A simple plugin to display chat messages. Visit https://github.com/EsyArda/ChatNotif#readme for more information.
         </Description>
         <Image>Esy/ChatNotif/res/icon.tga</Image>
     </Information>
