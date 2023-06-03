@@ -29,7 +29,6 @@ local DEFAULT_SETTINGS = {
     ["POSITION_LOCKED"] = true;
     ["DEBUG"] = false;
     ["ACCOUNT_WIDE_SETTINGS"] = false;
-    ["CUSTOMIZE_COLORS"] = false;
 };
 
 -- Actual settings for the character
