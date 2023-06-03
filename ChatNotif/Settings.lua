@@ -3,7 +3,7 @@ import "Esy.ChatNotif.VindarPatch";
 -- Settings
 
 -- Default settings
-DEFAULT_SETTINGS = {
+local DEFAULT_SETTINGS = {
     ["MSG_TIME"] = 0.10;
     ["MSG_TIME_MAX"] = 10;
     ["CHANNELS_ENABLED"] = {
@@ -32,11 +32,9 @@ DEFAULT_SETTINGS = {
 };
 
 -- Actual settings for the character
-SETTINGS = {};
+local SETTINGS = {};
 
 local settingsFileName = "Esy_ChatNotif_Settings";
-local settingsCharacter = {};
-local settingsAccount = {};
 
 -- Function to check if settings are valid and migrate them from anterior versions
 function CheckSettings(loadedSettings)
@@ -66,8 +64,7 @@ end
 -- Load settings from the file
 function LoadSettings()
     -- Always load account settings
-    settingsAccount = CheckSettings(PatchDataLoad(Turbine.DataScope.Account, settingsFileName));
-    SETTINGS = settingsAccount;
+    SETTINGS = CheckSettings(PatchDataLoad(Turbine.DataScope.Account, settingsFileName));
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded account settings") end
     
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded character settings") end
@@ -75,9 +72,10 @@ function LoadSettings()
     
     -- If account wide settings are disabled, load character settings
     if not SETTINGS.ACCOUNT_WIDE_SETTINGS then
-        settingsCharacter = CheckSettings(PatchDataLoad(Turbine.DataScope.Character, settingsFileName));
-        SETTINGS = settingsCharacter;
+        SETTINGS = CheckSettings(PatchDataLoad(Turbine.DataScope.Character, settingsFileName));
     end
+
+    return SETTINGS;
 end
 
 -- Save settings for the character in the file
