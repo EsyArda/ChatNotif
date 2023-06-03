@@ -1,3 +1,7 @@
+-- Options window
+
+import "Esy.ChatNotif.ColorPicker";
+
 function OptionsControl()
     -- Pixel values
     local boxHeight = 20;
@@ -6,6 +10,7 @@ function OptionsControl()
     local yOffset = 10;
     local scrollBarWidth = boxWidth/2;
     local scrollBarHeight = 10;
+    local colorPickerWidth = 100;
 
     -- Fonts
     local headerFont = Turbine.UI.Lotro.Font.VerdanaBold16;
@@ -31,6 +36,25 @@ function OptionsControl()
         MyNotifWindow:SetLock(lockPosition:IsChecked());
     end
     yPosition = yPosition + lockPosition:GetHeight() + yOffset;
+
+
+    
+    -- ##### Customize colors #####
+    local lockPosition = Turbine.UI.Lotro.CheckBox();
+    lockPosition:SetParent(Options);
+    lockPosition:SetSize(boxWidth, 2*boxHeight);
+    lockPosition:SetPosition(0, yPosition);
+    lockPosition:SetFont(headerFont);
+    lockPosition:SetText("Customize colors (uncheck after setting colors for better performance)");
+    if SETTINGS.DEBUG then lockPosition:SetBackColor(Turbine.UI.Color(0.22,0.17,0.47)) end
+    lockPosition:SetChecked(SETTINGS.CUSTOMIZE_COLORS);
+    lockPosition.CheckedChanged = function(sender, args)
+        SETTINGS.CUSTOMIZE_COLORS = not SETTINGS.CUSTOMIZE_COLORS;
+    end
+    yPosition = yPosition + lockPosition:GetHeight() + yOffset;
+    
+    
+
 
     -- ##### Channel choice #####
     local channelsLabel = Turbine.UI.Label();
@@ -61,7 +85,7 @@ function OptionsControl()
             -- Channel checkbox
             channelsCheckbox[name] = Turbine.UI.Lotro.CheckBox();
             channelsCheckbox[name]:SetParent(Options);
-            channelsCheckbox[name]:SetSize(boxWidth - leftMargin, boxHeight);
+            channelsCheckbox[name]:SetSize(boxWidth - leftMargin - colorPickerWidth, boxHeight);
             channelsCheckbox[name]:SetPosition(leftMargin, yPosition);
             channelsCheckbox[name]:SetFont(corpsFont);
             local label;
@@ -78,8 +102,24 @@ function OptionsControl()
                     RemoveFromSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
                 end
             end
+
+            -- -- ##### Color Picker #####
+            if SETTINGS.CUSTOMIZE_COLORS then
+                local colorPicker = ColorPicker();
+                colorPicker:SetParent(Options);
+                colorPicker:SetPosition(boxWidth - colorPickerWidth, yPosition);
+                -- colorPicker.doActive=function()
+                --     Turbine.Shell.WriteLine("Color picker active");
+                -- end
+                colorPicker.ColorChanged=function(sender,args)
+                    channelsCheckbox[name]:SetForeColor(args.Color);
+                    SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]] = args.Color;
+                end
+            end
+
+
             -- Update Y position
-            yPosition = yPosition + boxHeight;
+            yPosition = yPosition + boxHeight + yOffset;
         end
     end
     yPosition = yPosition+ yOffset;
