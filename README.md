@@ -41,4 +41,4 @@ The duration is based on the length of the text.
   - [ ] Font color based on chat options colors
 - Commands
   - [x] ~~Better debug messages~~
-- [ ] New logo
+- [x] New logo
