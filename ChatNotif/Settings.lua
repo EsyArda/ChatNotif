@@ -29,6 +29,7 @@ local DEFAULT_SETTINGS = {
     ["POSITION_LOCKED"] = true;
     ["DEBUG"] = false;
     ["ACCOUNT_WIDE_SETTINGS"] = false;
+    ["CUSTOMIZE_COLORS"] = false;
 };
 
 -- Actual settings for the character
@@ -47,9 +48,14 @@ function CheckSettings(loadedSettings)
             if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. DEFAULT_SETTINGS.MSG_TIME) end
             settings.MSG_TIME = DEFAULT_SETTINGS.MSG_TIME;
         end
-        
         if (settings.MSG_TIME_MAX == nil) then
             settings.MSG_TIME_MAX = DEFAULT_SETTINGS.MSG_TIME_MAX;
+        end
+
+        -- Migrate settings from version 1.5.0 to 1.6.0
+        -- Creating a new table for channels colors
+        if (settings.CHANNELS_COLORS == nil) then
+            settings.CHANNELS_COLORS = {};
         end
     else
         settings = DEFAULT_SETTINGS;
