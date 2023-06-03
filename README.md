@@ -30,9 +30,9 @@ The duration is based on the length of the text.
     - [x] ~~Enable mouse drag to move the window~~
   - [x] ~~Set notification duration~~
   - [x] ~~Sort channels in the channel list~~
+  - [x] Save settings by character or account
   - [ ] Set font size
   - [ ] Set font colour
-  - [ ] Save settings by character/server/account
   - [ ] Option to hide messages sent by the player
 - Notification window
   - [x] ~~Message duration based on the length of the text.~~
