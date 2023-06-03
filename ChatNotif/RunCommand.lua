@@ -2,7 +2,9 @@
 import "Esy.ChatNotif.Set";
 
 -- Welcome message
-Turbine.Shell.WriteLine("Welcome to Chat Notif! Run '/cn help' to list commands.");
+-- if SETTINGS.DEBUG then
+--     Turbine.Shell.WriteLine("\n> Welcome to Chat Notif! Run '/cn help' to list commands.");
+-- end
 
 -- Command line class
 RunCommand = class(Turbine.ShellCommand);
