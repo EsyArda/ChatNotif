@@ -129,6 +129,7 @@ function NotifWindow:ChatReceived()
             local color;
             if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[args.ChatType] ~= nil then
                 color = SETTINGS.CHANNELS_COLORS[args.ChatType];
+                color = Turbine.UI.Color(color.R, color.G, color.B)
             else
                 color = Turbine.UI.Color.Azure;
             end

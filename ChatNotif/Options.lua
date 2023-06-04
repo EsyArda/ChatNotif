@@ -71,10 +71,19 @@ function OptionsControl()
             channelsCheckbox[name]:SetSize(boxWidth - leftMargin, boxHeight);
             channelsCheckbox[name]:SetPosition(leftMargin, yPosition);
             channelsCheckbox[name]:SetFont(corpsFont);
+            local color;
+            if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]] ~= nil then
+                color = SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]];
+                color = Turbine.UI.Color(color.R, color.G, color.B);
+            else
+                color = Turbine.UI.Color.Azure;
+            end
+            channelsCheckbox[name]:SetForeColor(color);
             local label;
             if SETTINGS.DEBUG then label = Turbine.ChatType[name] .. " - " .. name else label = name end;
             channelsCheckbox[name]:SetText(label);
             if SETTINGS.DEBUG then channelsCheckbox[name]:SetBackColor(Turbine.UI.Color.BlueViolet) end
+
             channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]));
             channelsCheckbox[name].CheckedChanged = function(sender, args)
                 if channelsCheckbox[name]:IsChecked() then
