@@ -2,6 +2,8 @@
 
 A simple LOTRO plugin to display chat messages larger on your screen.
 
+![Chat buble with an exclamation mark and the text "Chat Notif"](ChatNotif/res/icon.png)
+
 ## Installation guide
 
 1. Download the latest release from [Github](https://github.com/EsyArda/ChatNotif/releases/latest) of [lotroInterface](https://www.lotrointerface.com/downloads/info1208).
