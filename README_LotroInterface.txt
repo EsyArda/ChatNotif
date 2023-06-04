@@ -1,6 +1,6 @@
 [SIZE="7"]Chat Notif[/SIZE]
 
-A simple LOTRO plugin for displaying chat messages larger on your screen.
+A simple LOTRO plugin to display chat messages larger on your screen.
 
 The source code is available here: [URL="https://github.com/EsyArda/ChatNotif/"]https://github.com/EsyArda/ChatNotif/[/URL].
 
@@ -9,16 +9,19 @@ The source code is available here: [URL="https://github.com/EsyArda/ChatNotif/"]
 [LIST=1]
 [*] Download the plugin on LotroInterface
 [*] Go to the [I]The Lord of the Rings Online\Plugins\[/I] folder (for example [I]C:\Users\USER\Documents\The Lord of the Rings Online\Plugins\[/I])
-[*] Launch the game and load `ChatNotif`
+[*] Launch the game and load [I]ChatNotif[/I]
 [/LIST]
 
 [SIZE="5"]Features[/SIZE]
 
 [LIST]
-[*]Displays chat messages on you screen.
-[*]In the option panel, you can unlock the window to move where messages appear.
-[*]You can select which channels will show messages.
-[*]You can change the speed in the options window. The duration is based on the length of the text.
+[*]Displays simple notification for chat messages.
+[*]In the Options panel, you can unlock the window to move it around.
+[*]You can select which channels which channels to display.
+[*]You can customize the color for each channel.
+[*]You can change the speed in the Options window. The duration is based on the length of the text.
+[*]Settings can be saved for your character or for the entire account.
+[*] Some additional features are available from the command line. Type `/cn help` to see all available commands.
 [/LIST]
 
 [SIZE="5"]Versions[/SIZE]
