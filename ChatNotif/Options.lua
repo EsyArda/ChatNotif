@@ -141,7 +141,7 @@ function OptionsControl()
 
     local count = 0;
     resetColorsButton.Click = function(sender, args)
-        count = count + 1;
+        count = (count + 1) % 2;
         
         if count == 1 then
             resetColorsButton:SetText("Sure? Clic again to reset colors");
@@ -150,6 +150,7 @@ function OptionsControl()
             for name, channelCheckbox in pairs(channelsCheckbox) do
                 channelCheckbox:SetForeColor(SETTINGS.DEFAULT_COLOR);
             end
+            resetColorsButton:SetText("Clic to reset colors");
         end
     end
 
