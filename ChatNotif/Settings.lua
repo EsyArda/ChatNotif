@@ -3,7 +3,7 @@ import "Esy.ChatNotif.VindarPatch";
 -- Settings
 
 -- Default settings
-DEFAULT_SETTINGS = {
+local DEFAULT_SETTINGS = {
     ["MSG_TIME"] = 0.10;
     ["MSG_TIME_MAX"] = 10;
     ["CHANNELS_ENABLED"] = {
@@ -29,14 +29,19 @@ DEFAULT_SETTINGS = {
     ["POSITION_LOCKED"] = true;
     ["DEBUG"] = false;
     ["ACCOUNT_WIDE_SETTINGS"] = false;
+    ["DEFAULT_COLOR"] = 
+	{
+		["A"] = 1,
+		["R"] = 0.94099998474121,
+		["B"] = 1,
+		["G"] = 1
+	},
 };
 
 -- Actual settings for the character
-SETTINGS = {};
+local SETTINGS = {};
 
 local settingsFileName = "Esy_ChatNotif_Settings";
-local settingsCharacter = {};
-local settingsAccount = {};
 
 -- Function to check if settings are valid and migrate them from anterior versions
 function CheckSettings(loadedSettings)
@@ -49,10 +54,22 @@ function CheckSettings(loadedSettings)
             if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. DEFAULT_SETTINGS.MSG_TIME) end
             settings.MSG_TIME = DEFAULT_SETTINGS.MSG_TIME;
         end
-        
         if (settings.MSG_TIME_MAX == nil) then
             settings.MSG_TIME_MAX = DEFAULT_SETTINGS.MSG_TIME_MAX;
         end
+
+        -- Migrate settings from version 1.5.0 to 1.6.0
+        -- Creating a new table for channels colors
+        if (settings.CHANNELS_COLORS == nil) then
+            settings.CHANNELS_COLORS = {};
+        end
+        -- Create new default color table
+        if (settings.DEFAULT_COLOR == nil) then
+            settings.DEFAULT_COLOR = DEFAULT_SETTINGS.DEFAULT_COLOR;
+        end
+        -- End of migrations
+
+        settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
     else
         settings = DEFAULT_SETTINGS;
     end
@@ -66,8 +83,7 @@ end
 -- Load settings from the file
 function LoadSettings()
     -- Always load account settings
-    settingsAccount = CheckSettings(PatchDataLoad(Turbine.DataScope.Account, settingsFileName));
-    SETTINGS = settingsAccount;
+    SETTINGS = CheckSettings(PatchDataLoad(Turbine.DataScope.Account, settingsFileName));
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded account settings") end
     
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded character settings") end
@@ -75,9 +91,10 @@ function LoadSettings()
     
     -- If account wide settings are disabled, load character settings
     if not SETTINGS.ACCOUNT_WIDE_SETTINGS then
-        settingsCharacter = CheckSettings(PatchDataLoad(Turbine.DataScope.Character, settingsFileName));
-        SETTINGS = settingsCharacter;
+        SETTINGS = CheckSettings(PatchDataLoad(Turbine.DataScope.Character, settingsFileName));
     end
+
+    return SETTINGS;
 end
 
 -- Save settings for the character in the file

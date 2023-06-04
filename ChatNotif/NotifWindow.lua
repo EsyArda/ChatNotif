@@ -105,9 +105,10 @@ function NotifWindow:SetLock(lockState)
 end
 
 -- Displays a message for a given duration
-function NotifWindow:DisplayMsg(msg, duration)
+function NotifWindow:DisplayMsg(msg, duration, color)
     if (duration ~= 0) then DisplayTimer:SetTime(duration, false) end
     self.Anounce:SetText(msg);
+    if (color ~= nil) then self.Anounce:SetForeColor(color) end
     self.Anounce:SetVisible(true);
 end
 
@@ -125,7 +126,14 @@ function NotifWindow:ChatReceived()
             if SETTINGS.DEBUG then msg = "[" .. args.ChatType .. "] " .. args.Message;
             else msg = args.Message end
             local duration = math.min(SETTINGS.MSG_TIME * #msg, SETTINGS.MSG_TIME_MAX);
-            self:DisplayMsg(msg, duration);
+            local color;
+            if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[args.ChatType] ~= nil then
+                color = SETTINGS.CHANNELS_COLORS[args.ChatType];
+                color = Turbine.UI.Color(color.R, color.G, color.B)
+            else
+                color = SETTINGS.DEFAULT_COLOR;
+            end
+            self:DisplayMsg(msg, duration, color);
         end
     end
 end

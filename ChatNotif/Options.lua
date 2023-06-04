@@ -1,3 +1,7 @@
+-- Options window
+
+import "Esy.ChatNotif.ColorPicker";
+
 function OptionsControl()
     -- Pixel values
     local boxHeight = 20;
@@ -6,6 +10,7 @@ function OptionsControl()
     local yOffset = 10;
     local scrollBarWidth = boxWidth/2;
     local scrollBarHeight = 10;
+    local colorPickerWidth = 100;
 
     -- Fonts
     local headerFont = Turbine.UI.Lotro.Font.VerdanaBold16;
@@ -32,6 +37,8 @@ function OptionsControl()
     end
     yPosition = yPosition + lockPosition:GetHeight() + yOffset;
 
+
+    
     -- ##### Channel choice #####
     local channelsLabel = Turbine.UI.Label();
     channelsLabel:SetParent(Options);
@@ -56,7 +63,7 @@ function OptionsControl()
     table.sort(sortedKeys)
 
     -- name is the name of the chat type and chatTypeNames[name] is it's number
-    for _, name in ipairs(sortedKeys) do
+    for _, name in pairs(sortedKeys) do
         if(type(Turbine.ChatType[name]) == "number") then
             -- Channel checkbox
             channelsCheckbox[name] = Turbine.UI.Lotro.CheckBox();
@@ -64,10 +71,19 @@ function OptionsControl()
             channelsCheckbox[name]:SetSize(boxWidth - leftMargin, boxHeight);
             channelsCheckbox[name]:SetPosition(leftMargin, yPosition);
             channelsCheckbox[name]:SetFont(corpsFont);
+            local color;
+            if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]] ~= nil then
+                color = SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]];
+                color = Turbine.UI.Color(color.R, color.G, color.B);
+            else
+                color = Turbine.UI.Color.Azure;
+            end
+            channelsCheckbox[name]:SetForeColor(color);
             local label;
             if SETTINGS.DEBUG then label = Turbine.ChatType[name] .. " - " .. name else label = name end;
             channelsCheckbox[name]:SetText(label);
             if SETTINGS.DEBUG then channelsCheckbox[name]:SetBackColor(Turbine.UI.Color.BlueViolet) end
+
             channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]));
             channelsCheckbox[name].CheckedChanged = function(sender, args)
                 if channelsCheckbox[name]:IsChecked() then
@@ -78,11 +94,68 @@ function OptionsControl()
                     RemoveFromSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
                 end
             end
+
             -- Update Y position
-            yPosition = yPosition + boxHeight;
+            yPosition = yPosition + boxHeight + yOffset;
         end
     end
     yPosition = yPosition+ yOffset;
+
+
+
+    -- ##### Customize colors #####
+    local customizeColorsButton = Turbine.UI.Lotro.Button();
+    customizeColorsButton:SetParent(Options);
+    customizeColorsButton:SetSize(boxWidth, 4*boxHeight);
+    customizeColorsButton:SetPosition(0, yPosition);
+    customizeColorsButton:SetFont(headerFont);
+    customizeColorsButton:SetText("Clic to customize colors");
+
+    customizeColorsButton.Click = function(sender, args)
+        -- For each channelCheckbox, add a color picker
+        for name, channelCheckbox in pairs(channelsCheckbox) do
+            channelCheckbox.colorPicker = ColorPicker();
+            channelCheckbox.colorPicker:SetParent(channelCheckbox);
+            channelCheckbox.colorPicker:SetPosition(boxWidth - colorPickerWidth, 0);
+            -- colorPicker.doActive=function()
+            --     Turbine.Shell.WriteLine("Color picker active");
+            -- end
+            channelCheckbox.colorPicker.ColorChanged=function(sender,args)
+                channelCheckbox:SetForeColor(args.Color);
+                SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]] = args.Color;
+            end
+        end
+    end
+
+    if SETTINGS.DEBUG then customizeColorsButton:SetBackColor(Turbine.UI.Color(0.22,0.17,0.47)) end
+    yPosition = yPosition + customizeColorsButton:GetHeight() + yOffset;
+    
+
+    -- ##### Reset colors #####
+    local resetColorsButton = Turbine.UI.Lotro.Button();
+    resetColorsButton:SetParent(Options);
+    resetColorsButton:SetSize(boxWidth, 4*boxHeight);
+    resetColorsButton:SetPosition(0, yPosition);
+    resetColorsButton:SetFont(headerFont);
+    resetColorsButton:SetText("Clic to reset colors");
+
+    local count = 0;
+    resetColorsButton.Click = function(sender, args)
+        count = (count + 1) % 2;
+        
+        if count == 1 then
+            resetColorsButton:SetText("Sure? Clic again to reset colors");
+        else
+            SETTINGS.CHANNELS_COLORS = {};
+            for name, channelCheckbox in pairs(channelsCheckbox) do
+                channelCheckbox:SetForeColor(SETTINGS.DEFAULT_COLOR);
+            end
+            resetColorsButton:SetText("Clic to reset colors");
+        end
+    end
+
+    if SETTINGS.DEBUG then resetColorsButton:SetBackColor(Turbine.UI.Color(0.22,0.17,0.47)) end
+    yPosition = yPosition + resetColorsButton:GetHeight() + yOffset;
 
 
     -- ##### Notif timer #####

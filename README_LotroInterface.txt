@@ -26,6 +26,7 @@ The source code is available here: [URL="https://github.com/EsyArda/ChatNotif/"]
 Full change logs at [URL="https://github.com/EsyArda/ChatNotif/releases"]https://github.com/EsyArda/ChatNotif/releases[/URL].
 
 [LIST]
+[*] Version 1.6.0: It is now possible to change channel colors!
 [*] Version 1.5.0: Added a new option to save an load settings account wide.
 [*] Version 1.4.1-1: Corrected the LotroInterface download file.
 [*] Version 1.4.1: The icon is now displayed correctly.
