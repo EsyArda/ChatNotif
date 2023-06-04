@@ -31,10 +31,10 @@ local DEFAULT_SETTINGS = {
     ["ACCOUNT_WIDE_SETTINGS"] = false;
     ["DEFAULT_COLOR"] = 
 	{
-		["A"] = "1",
-		["R"] = "0.94099998474121",
-		["B"] = "1",
-		["G"] = "1"
+		["A"] = 1,
+		["R"] = 0.94099998474121,
+		["B"] = 1,
+		["G"] = 1
 	},
 };
 
@@ -69,7 +69,7 @@ function CheckSettings(loadedSettings)
         end
         -- End of migrations
 
-        settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.A, settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
+        settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
     else
         settings = DEFAULT_SETTINGS;
     end
