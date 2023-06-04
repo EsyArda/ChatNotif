@@ -29,6 +29,13 @@ local DEFAULT_SETTINGS = {
     ["POSITION_LOCKED"] = true;
     ["DEBUG"] = false;
     ["ACCOUNT_WIDE_SETTINGS"] = false;
+    ["DEFAULT_COLOR"] = 
+	{
+		["A"] = "1",
+		["R"] = "0.94099998474121",
+		["B"] = "1",
+		["G"] = "1"
+	},
 };
 
 -- Actual settings for the character
@@ -56,6 +63,13 @@ function CheckSettings(loadedSettings)
         if (settings.CHANNELS_COLORS == nil) then
             settings.CHANNELS_COLORS = {};
         end
+        -- Create new default color table
+        if (settings.DEFAULT_COLOR == nil) then
+            settings.DEFAULT_COLOR = DEFAULT_SETTINGS.DEFAULT_COLOR;
+        end
+        -- End of migrations
+
+        settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.A, settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
     else
         settings = DEFAULT_SETTINGS;
     end
