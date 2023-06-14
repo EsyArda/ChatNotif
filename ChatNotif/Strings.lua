@@ -11,6 +11,19 @@ STRINGS_EN = {
     options_font_size_label = "[In a future update] Select font size",
 }
 
+STRINGS_ENGB = {
+    options_lock_position_label = "Lock window position",
+    options_channels_label = "Select channels",
+    options_customize_colors_button = "Clic to customize colours",
+    options_reset_colors_button = "Clic to reset colours",
+    options_reset_colors_button_confirm = "Sure? Clic again to reset colours",
+    options_timer_label_1 = "Notification duration: ",
+    options_timer_label_2 = "s per character",
+    options_account_wide_checkBox = "Save settings account wide (update on logout)",
+    options_commands_label = "Type '/cn help' in the chat window to see all commands",
+    options_font_size_label = "[In a future update] Select font size",
+}
+
 STRINGS_FR = {
     options_lock_position_label = "Verrouiller la position de la fenêtre",
     options_channels_label = "Sélectioner les canaux",
