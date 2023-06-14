@@ -11,10 +11,11 @@ import "Esy.ChatNotif.Options";
 function Main()
     SETTINGS = LoadSettings();
     RegisterForUnload();
+    local strings = getStringsFromLanguage(Turbine.Engine.GetLanguage());
     Commands = RunCommand();
     Turbine.Shell.AddCommand("cn", Commands);
     MyNotifWindow = NotifWindow(SETTINGS);
-    OptionsControl();
+    OptionsControl(strings);
 end
 
 Main();

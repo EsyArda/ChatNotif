@@ -1,9 +1,9 @@
 -- Options window
 
 import "Esy.ChatNotif.ColorPicker";
-import "Esy.ChatNotif.Strings";
+import "Esy.ChatNotif.Language";
 
-function OptionsControl()
+function OptionsControl(strings)
     -- Pixel values
     local boxHeight = 20;
     local boxWidth = 320;
@@ -30,7 +30,7 @@ function OptionsControl()
     lockPosition:SetSize(boxWidth, boxHeight);
     lockPosition:SetPosition(0, yPosition);
     lockPosition:SetFont(headerFont);
-    lockPosition:SetText(STRINGS.options_lock_position_label);
+    lockPosition:SetText(strings.options_lock_position_label);
     if SETTINGS.DEBUG then lockPosition:SetBackColor(Turbine.UI.Color.DarkOrange) end
     lockPosition:SetChecked(SETTINGS.POSITION_LOCKED);
     lockPosition.CheckedChanged = function(sender, args)
@@ -47,7 +47,7 @@ function OptionsControl()
     if SETTINGS.DEBUG then channelsLabel:SetBackColor(Turbine.UI.Color.DarkRed) end
     channelsLabel:SetFont(headerFont);
     channelsLabel:SetPosition(0, yPosition);
-    channelsLabel:SetText(STRINGS.options_channels_label);
+    channelsLabel:SetText(strings.options_channels_label);
 
     -- Chat types
     yPosition = channelsLabel:GetTop() + channelsLabel:GetHeight();
@@ -110,7 +110,7 @@ function OptionsControl()
     customizeColorsButton:SetSize(boxWidth, 4*boxHeight);
     customizeColorsButton:SetPosition(0, yPosition);
     customizeColorsButton:SetFont(headerFont);
-    customizeColorsButton:SetText(STRINGS.options_customize_colors_button);
+    customizeColorsButton:SetText(strings.options_customize_colors_button);
 
     customizeColorsButton.Click = function(sender, args)
         -- For each channelCheckbox, add a color picker
@@ -138,20 +138,20 @@ function OptionsControl()
     resetColorsButton:SetSize(boxWidth, 4*boxHeight);
     resetColorsButton:SetPosition(0, yPosition);
     resetColorsButton:SetFont(headerFont);
-    resetColorsButton:SetText(STRINGS.options_reset_colors_button);
+    resetColorsButton:SetText(strings.options_reset_colors_button);
 
     local count = 0;
     resetColorsButton.Click = function(sender, args)
         count = (count + 1) % 2;
         
         if count == 1 then
-            resetColorsButton:SetText(STRINGS.options_reset_colors_button_confirm);
+            resetColorsButton:SetText(strings.options_reset_colors_button_confirm);
         else
             SETTINGS.CHANNELS_COLORS = {};
             for name, channelCheckbox in pairs(channelsCheckbox) do
                 channelCheckbox:SetForeColor(SETTINGS.DEFAULT_COLOR);
             end
-            resetColorsButton:SetText(STRINGS.options_reset_colors_button);
+            resetColorsButton:SetText(strings.options_reset_colors_button);
         end
     end
 
@@ -167,7 +167,7 @@ function OptionsControl()
     if SETTINGS.DEBUG then timerLabel:SetBackColor(Turbine.UI.Color.DarkGoldenrod) end
     timerLabel:SetPosition(0, yPosition);
     timerLabel:SetFont(headerFont);
-    timerLabel:SetText(STRINGS.options_timer_label_1 .. SETTINGS.MSG_TIME .. STRINGS.options_timer_label_2);
+    timerLabel:SetText(strings.options_timer_label_1 .. SETTINGS.MSG_TIME .. strings.options_timer_label_2);
     timerLabel:SetVisible(true);
     yPosition = yPosition + boxHeight;
 
@@ -186,7 +186,7 @@ function OptionsControl()
         local value = timerScrollBar:GetValue();
         if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Timer value: " .. value) end
         SETTINGS.MSG_TIME = value / 100;
-        timerLabel:SetText(STRINGS.options_timer_label_1 .. SETTINGS.MSG_TIME .. STRINGS.options_timer_label_2);
+        timerLabel:SetText(strings.options_timer_label_1 .. SETTINGS.MSG_TIME .. strings.options_timer_label_2);
     end
     yPosition = yPosition + scrollBarHeight + yOffset;
 
@@ -200,7 +200,7 @@ function OptionsControl()
     accountWideCheckBox:SetSize(boxWidth, 2*boxHeight);
     accountWideCheckBox:SetPosition(0, yPosition);
     accountWideCheckBox:SetFont(headerFont);
-    accountWideCheckBox:SetText(STRINGS.options_account_wide_checkBox);
+    accountWideCheckBox:SetText(strings.options_account_wide_checkBox);
     if SETTINGS.DEBUG then accountWideCheckBox:SetBackColor(Turbine.UI.Color.RoyalBlue) end
     accountWideCheckBox:SetChecked(SETTINGS.ACCOUNT_WIDE_SETTINGS);
     accountWideCheckBox.CheckedChanged = function(sender, args)
@@ -218,7 +218,7 @@ function OptionsControl()
     if SETTINGS.DEBUG then commandsLabel:SetBackColor(Turbine.UI.Color.YellowGreen) end
     commandsLabel:SetFont(corpsFont);
     commandsLabel:SetPosition(0, yPosition);
-    commandsLabel:SetText(STRINGS.options_commands_label);
+    commandsLabel:SetText(strings.options_commands_label);
     yPosition = yPosition + commandsLabel:GetHeight() + yOffset;
 
 
@@ -229,7 +229,7 @@ function OptionsControl()
     if SETTINGS.DEBUG then fontSizeLabel:SetBackColor(Turbine.UI.Color.DarkGreen) end
     fontSizeLabel:SetPosition(0, yPosition);
     fontSizeLabel:SetFont(headerFont);
-    fontSizeLabel:SetText(STRINGS.options_font_size_label);
+    fontSizeLabel:SetText(strings.options_font_size_label);
     fontSizeLabel:SetVisible(false); -- TODO
     yPosition = yPosition + boxHeight;
 
