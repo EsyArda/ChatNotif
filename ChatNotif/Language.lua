@@ -1,6 +1,6 @@
-function getStringsFromLanguage(language)
+function GetStringsFromLanguage(language)
     
-    STRINGS_EN = {
+    local STRINGS_EN = {
         options_lock_position_label = "Lock window position",
         options_channels_label = "Select channels",
         options_customize_colors_button = "Clic to customize colors",
@@ -13,7 +13,7 @@ function getStringsFromLanguage(language)
         options_font_size_label = "[In a future update] Select font size",
     }
 
-    STRINGS_ENGB = {
+    local STRINGS_ENGB = {
         options_lock_position_label = "Lock window position",
         options_channels_label = "Select channels",
         options_customize_colors_button = "Clic to customize colours",
@@ -26,7 +26,7 @@ function getStringsFromLanguage(language)
         options_font_size_label = "[In a future update] Select font size",
     }
 
-    STRINGS_FR = {
+    local STRINGS_FR = {
         options_lock_position_label = "Verrouiller la position de la fenêtre",
         options_channels_label = "Sélectioner les canaux",
         options_customize_colors_button = "Cliquez pour personaliser les couleurs",
@@ -39,7 +39,7 @@ function getStringsFromLanguage(language)
         options_font_size_label = "[Dans une prochaine mise à jour] Sélectionez la taille du texte",
     }
 
-    STRINGS_DE = {
+    local STRINGS_DE = {
         options_lock_position_label = "Fensterposition sperren",
         options_channels_label = "Kanäle auswählen",
         options_customize_colors_button = "Klicken Sie, um die Farben anzupassen",
@@ -52,5 +52,13 @@ function getStringsFromLanguage(language)
         options_font_size_label = "[In einem zukünftigen Update] Schriftgröße auswählen",
     }
 
-    return STRINGS_EN
+    if language == Turbine.Language.French then
+        return STRINGS_FR
+    elseif language == Turbine.Language.German then
+        return STRINGS_DE
+    elseif language == Turbine.Language.EnglishGB then
+        return STRINGS_ENGB
+    else
+        return STRINGS_EN
+    end
 end
