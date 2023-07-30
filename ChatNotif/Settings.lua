@@ -106,7 +106,7 @@ function SaveSettings()
     
     -- Save account settings
     PatchDataSave(Turbine.DataScope.Account, settingsFileName, SETTINGS);
-    Turbine.Shell.WriteLine("> Settings: Saved account settings");
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Saved account settings") end
 end
 
 -- Register the function to save settings when the plugin is unloaded
