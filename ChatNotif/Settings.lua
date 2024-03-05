@@ -4,6 +4,7 @@ import "Esy.ChatNotif.VindarPatch";
 
 -- Default settings
 local DEFAULT_SETTINGS = {
+    ["VERSION"] = "1.7.0-alpha";
     ["MSG_TIME"] = 0.18; -- 0.18 sec per character
     ["MSG_TIME_MAX"] = 10; -- 10 seconds
     ["CHANNELS_ENABLED"] = {
@@ -154,7 +155,9 @@ function CheckSettings(loadedSettings)
         if (settings.DEFAULT_COLOR == nil) then
             settings.DEFAULT_COLOR = DEFAULT_SETTINGS.DEFAULT_COLOR;
         end
+        
         -- End of migrations
+        settings.VERSION = DEFAULT_SETTINGS.VERSION
 
         settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
     else
