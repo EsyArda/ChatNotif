@@ -122,13 +122,7 @@ local DEFAULT_SETTINGS = {
 			["B"] = 0.27
 		}
     };
-    ["DEFAULT_COLOR"] = 
-	{
-		["A"] = 1,
-		["R"] = 0.82,
-		["B"] = 0.82,
-		["G"] = 0.82
-	}
+    ["DEFAULT_COLOR"] = Turbine.UI.Color(1, 0.82, 0.82, 0.82)
 };
 
 -- Actual settings for the character
@@ -207,4 +201,8 @@ function RegisterForUnload()
     Turbine.Plugin.Unload = function(sender, args)
         SaveSettings();
     end
+end
+
+function GetDefaultSettings()
+    return DEFAULT_SETTINGS
 end
