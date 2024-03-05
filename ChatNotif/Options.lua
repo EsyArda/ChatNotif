@@ -72,8 +72,7 @@ function OptionsControl(stringsTranslated)
             channelsCheckbox[name]:SetSize(boxWidth - leftMargin, boxHeight);
             channelsCheckbox[name]:SetPosition(leftMargin, yPosition);
             channelsCheckbox[name]:SetFont(corpsFont);
-            -- local color = SETTINGS.DEFAULT_COLOR;
-            local color = Turbine.UI.Color.Azure
+            local color = SETTINGS.DEFAULT_COLOR;
             if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]] ~= nil then
                 color = SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]];
                 color = Turbine.UI.Color(color.R, color.G, color.B);
