@@ -77,7 +77,7 @@ function OptionsControl(strings)
                 color = SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]];
                 color = Turbine.UI.Color(color.R, color.G, color.B);
             else
-                color = Turbine.UI.Color.Azure;
+                color = SETTINGS.DEFAULT_COLOR;
             end
             channelsCheckbox[name]:SetForeColor(color);
             local label;
