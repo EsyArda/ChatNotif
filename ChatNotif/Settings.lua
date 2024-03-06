@@ -94,6 +94,13 @@ local DEFAULT_SETTINGS = {
 			["G"] = 0,
 			["B"] = 0
 		},
+        [32] = -- Tribe
+		{
+			["A"] = 1,
+			["R"] = 0.32,
+			["G"] = 0.67,
+			["B"] = 1
+		},
         [34] = -- PlayerCombat 
 		{
 			["A"] = 1,
