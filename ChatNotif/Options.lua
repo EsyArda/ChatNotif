@@ -39,6 +39,57 @@ function OptionsControl(stringsTranslated)
     yPosition = yPosition + lockPosition:GetHeight() + yOffset;
 
 
+    -- #### Enable highlight #####
+    local enableHighlight = Turbine.UI.Lotro.CheckBox();
+    enableHighlight:SetParent(Options);
+    enableHighlight:SetSize(boxWidth, boxHeight);
+    enableHighlight:SetPosition(0, yPosition);
+    enableHighlight:SetFont(headerFont);
+    enableHighlight:SetText(stringsTranslated.options_enable_highlight);
+    if SETTINGS.DEBUG then enableHighlight:SetBackColor(Turbine.UI.Color.DarkGreen) end
+    enableHighlight:SetChecked(SETTINGS.MSG_TIME_HIGHLIGHT>0);
+    enableHighlight.CheckedChanged = function(sender, args)
+    local defaultSettings = GetDefaultSettings()
+       if (enableHighlight:IsChecked()) then
+            SETTINGS.MSG_TIME_HIGHLIGHT = defaultSettings.MSG_TIME_HIGHLIGHT;
+       else
+            SETTINGS.MSG_TIME_HIGHLIGHT = 0;
+       end
+    end
+    yPosition = yPosition + enableHighlight:GetHeight() + yOffset;
+
+    
+    -- ##### Notif timer #####
+    -- Timer label
+    local timerLabel = Turbine.UI.Label();
+    timerLabel:SetParent(Options);
+    timerLabel:SetSize(boxWidth, boxHeight);
+    if SETTINGS.DEBUG then timerLabel:SetBackColor(Turbine.UI.Color.DarkGoldenrod) end
+    timerLabel:SetPosition(0, yPosition);
+    timerLabel:SetFont(headerFont);
+    timerLabel:SetText(stringsTranslated.options_timer_label_1 .. SETTINGS.MSG_TIME .. stringsTranslated.options_timer_label_2);
+    timerLabel:SetVisible(true);
+    yPosition = yPosition + boxHeight;
+
+    -- Timer scroll bar
+    local timerScrollBar = Turbine.UI.Lotro.ScrollBar();
+    timerScrollBar:SetParent(Options);
+    timerScrollBar:SetPosition(leftMargin, yPosition);
+    timerScrollBar:SetOrientation(Turbine.UI.Orientation.Horizontal);
+    timerScrollBar:SetSize(scrollBarWidth, scrollBarHeight);
+    -- Larger bar
+    timerScrollBar:SetMinimum(1);
+    timerScrollBar:SetMaximum(50);
+    -- Value
+    timerScrollBar:SetValue(SETTINGS.MSG_TIME * 100);
+    timerScrollBar.ValueChanged = function(sender, args)
+        local value = timerScrollBar:GetValue();
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Timer value: " .. value) end
+        SETTINGS.MSG_TIME = value / 100;
+        timerLabel:SetText(stringsTranslated.options_timer_label_1 .. SETTINGS.MSG_TIME .. stringsTranslated.options_timer_label_2);
+    end
+    yPosition = yPosition + scrollBarHeight + yOffset;
+
     
     -- ##### Channel choice #####
     local channelsLabel = Turbine.UI.Label();
@@ -165,40 +216,6 @@ function OptionsControl(stringsTranslated)
 
     if SETTINGS.DEBUG then resetColorsButton:SetBackColor(Turbine.UI.Color(0.22,0.17,0.47)) end
     yPosition = yPosition + resetColorsButton:GetHeight() + yOffset;
-
-
-    -- ##### Notif timer #####
-    -- Timer label
-    local timerLabel = Turbine.UI.Label();
-    timerLabel:SetParent(Options);
-    timerLabel:SetSize(boxWidth, boxHeight);
-    if SETTINGS.DEBUG then timerLabel:SetBackColor(Turbine.UI.Color.DarkGoldenrod) end
-    timerLabel:SetPosition(0, yPosition);
-    timerLabel:SetFont(headerFont);
-    timerLabel:SetText(stringsTranslated.options_timer_label_1 .. SETTINGS.MSG_TIME .. stringsTranslated.options_timer_label_2);
-    timerLabel:SetVisible(true);
-    yPosition = yPosition + boxHeight;
-
-    -- Timer scroll bar
-    local timerScrollBar = Turbine.UI.Lotro.ScrollBar();
-    timerScrollBar:SetParent(Options);
-    timerScrollBar:SetPosition(leftMargin, yPosition);
-    timerScrollBar:SetOrientation(Turbine.UI.Orientation.Horizontal);
-    timerScrollBar:SetSize(scrollBarWidth, scrollBarHeight);
-    -- Larger bar
-    timerScrollBar:SetMinimum(1);
-    timerScrollBar:SetMaximum(50);
-    -- Value
-    timerScrollBar:SetValue(SETTINGS.MSG_TIME * 100);
-    timerScrollBar.ValueChanged = function(sender, args)
-        local value = timerScrollBar:GetValue();
-        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Timer value: " .. value) end
-        SETTINGS.MSG_TIME = value / 100;
-        timerLabel:SetText(stringsTranslated.options_timer_label_1 .. SETTINGS.MSG_TIME .. stringsTranslated.options_timer_label_2);
-    end
-    yPosition = yPosition + scrollBarHeight + yOffset;
-
-
 
 
 
