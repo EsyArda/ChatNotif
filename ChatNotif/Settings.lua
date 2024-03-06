@@ -3,10 +3,12 @@ import "Esy.ChatNotif.VindarPatch";
 -- Settings
 
 -- Default settings
-local DEFAULT_SETTINGS = {
+local default_settings = {
     ["VERSION"] = "1.7.0-alpha";
-    ["MSG_TIME"] = 0.18; -- 0.18 sec per character
-    ["MSG_TIME_MAX"] = 10; -- 10 seconds
+    ["MSG_TIME"] = 0.18; -- seconds per character
+    ["MSG_TIME_MAX"] = 10; -- seconds
+    ["MSG_TIME_MIN"] = 0.8; -- seconds
+    ["MSG_TIME_HIGHLIGHT"] = 0.5; -- seconds
     ["CHANNELS_ENABLED"] = {
         [6] = true, -- Tell
         [11] = true, -- Fellowship
@@ -141,16 +143,26 @@ local settingsFileName = "Esy_ChatNotif_Settings";
 -- Function to check if settings are valid and migrate them from anterior versions
 function CheckSettings(loadedSettings)
     local settings;
+    local major, minor, patch; -- version number
+    
     if (type(loadedSettings) == 'table') then
         settings = loadedSettings;
-
+        
+        if (settings.VERSION ~= nil and settings.VERSION ~= "") then
+            major, minor, patch = string.match(settings.VERSION, "(%d+)%.(%d+)%.(%d+)");
+        else
+            major = "1";
+            minor = "6";
+            patch = "0";
+        end
+        
         -- Migrate settings from version 1.1.1 to 1.2.0
         if (settings.MSG_TIME ~= nil and settings.MSG_TIME > 2) then
-            if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. DEFAULT_SETTINGS.MSG_TIME) end
-            settings.MSG_TIME = DEFAULT_SETTINGS.MSG_TIME;
+            if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. default_settings.MSG_TIME) end
+            settings.MSG_TIME = default_settings.MSG_TIME;
         end
         if (settings.MSG_TIME_MAX == nil) then
-            settings.MSG_TIME_MAX = DEFAULT_SETTINGS.MSG_TIME_MAX;
+            settings.MSG_TIME_MAX = default_settings.MSG_TIME_MAX;
         end
 
         -- Migrate settings from version 1.5.0 to 1.6.0
@@ -160,15 +172,21 @@ function CheckSettings(loadedSettings)
         end
         -- Create new default color table
         if (settings.DEFAULT_COLOR == nil) then
-            settings.DEFAULT_COLOR = DEFAULT_SETTINGS.DEFAULT_COLOR;
+            settings.DEFAULT_COLOR = default_settings.DEFAULT_COLOR;
+        end
+
+        -- Migrate setttings from 1.6.0 to 1.7.0
+        if (tonumber(major)<2 and tonumber(minor)<=7) then
+            settings.MSG_TIME_MIN = default_settings.MSG_TIME_MIN;
+            settings.MSG_TIME_HIGHLIGHT = default_settings.MSG_TIME_HIGHLIGHT;
         end
         
         -- End of migrations
-        settings.VERSION = DEFAULT_SETTINGS.VERSION
+        settings.VERSION = default_settings.VERSION
 
         settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
     else
-        settings = DEFAULT_SETTINGS;
+        settings = default_settings;
     end
 
     if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: checked") end
@@ -214,5 +232,5 @@ function RegisterForUnload()
 end
 
 function GetDefaultSettings()
-    return DEFAULT_SETTINGS
+    return default_settings
 end
