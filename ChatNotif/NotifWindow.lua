@@ -39,14 +39,14 @@ function NotifWindow:Constructor()
     local dragging = false;
     -- On moouse click
     self.MouseDown = function(args)
-        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("MouseDown " .. tostring(args)) end
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[NotifWindow] MouseDown " .. tostring(args)) end
         mousePositionBefore = { Turbine.UI.Display.GetMousePosition(); }
         windowPositionBefore = { self:GetPosition(); }
         dragging = true;
     end
     -- On mouse release
     self.MouseUp = function(args)
-        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("MouseUp " .. tostring(args)) end
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[NotifWindow] MouseUp " .. tostring(args)) end
         dragging = false;
         SETTINGS.POSITION.X, SETTINGS.POSITION.Y = self:GetPosition();
     end
@@ -124,7 +124,7 @@ function NotifWindow:DisplayMsg(msg, duration, color)
     if (color ~= nil) then self.Anounce:SetForeColor(color) end
     self.Anounce:SetVisible(true);
 
-    if SETTINGS.DEBUG and duration ~= nil and duration > 0 then Turbine.Shell.WriteLine("NotifWindow:DisplayMsg(\"" .. tostring(msg) .."\", " .. tostring(duration) ..")") end
+    if SETTINGS.DEBUG and duration ~= nil and duration > 0 then Turbine.Shell.WriteLine("[NotifWindow] DisplayMsg(\"" .. tostring(msg) .."\", " .. tostring(duration) ..")") end
 end
 
 -- Check if the message should be displayed given the current settings

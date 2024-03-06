@@ -84,7 +84,7 @@ function OptionsControl(stringsTranslated)
     timerScrollBar:SetValue(SETTINGS.MSG_TIME * 100);
     timerScrollBar.ValueChanged = function(sender, args)
         local value = timerScrollBar:GetValue();
-        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Timer value: " .. value) end
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Options] Timer value: " .. value) end
         SETTINGS.MSG_TIME = value / 100;
         timerLabel:SetText(stringsTranslated.options_timer_label_1 .. SETTINGS.MSG_TIME .. stringsTranslated.options_timer_label_2);
     end
@@ -137,10 +137,10 @@ function OptionsControl(stringsTranslated)
             channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]));
             channelsCheckbox[name].CheckedChanged = function(sender, args)
                 if channelsCheckbox[name]:IsChecked() then
-                    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Added " .. name) end
+                    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Options] Added " .. name) end
                     AddToSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
                 else
-                    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Removed " .. name) end
+                    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Options] Removed " .. name) end
                     RemoveFromSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
                 end
             end
@@ -168,7 +168,7 @@ function OptionsControl(stringsTranslated)
             channelCheckbox.colorPicker:SetParent(channelCheckbox);
             channelCheckbox.colorPicker:SetPosition(boxWidth - colorPickerWidth, 0);
             -- colorPicker.doActive=function()
-            --     Turbine.Shell.WriteLine("Color picker active");
+            --     Turbine.Shell.WriteLine("[Options] Color picker active");
             -- end
             channelCheckbox.colorPicker.ColorChanged=function(sender,args)
                 channelCheckbox:SetForeColor(args.Color);
@@ -230,7 +230,7 @@ function OptionsControl(stringsTranslated)
     accountWideCheckBox:SetChecked(SETTINGS.ACCOUNT_WIDE_SETTINGS);
     accountWideCheckBox.CheckedChanged = function(sender, args)
         SETTINGS.ACCOUNT_WIDE_SETTINGS = accountWideCheckBox:IsChecked();
-         if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Options: Account wide settings set to " .. tostring(SETTINGS.ACCOUNT_WIDE_SETTINGS)) end
+         if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Options] Account wide settings set to " .. tostring(SETTINGS.ACCOUNT_WIDE_SETTINGS)) end
 
     end
     yPosition = yPosition + accountWideCheckBox:GetHeight() + yOffset;

@@ -155,12 +155,12 @@ function CheckSettings(loadedSettings)
             minor = "6";
             patch = "0";
         end
-        if settings.DEBUG then Turbine.Shell.WriteLine("> Version "..major.."."..minor.."."..patch) end
+        if settings.DEBUG then Turbine.Shell.WriteLine("[Settings] Version "..major.."."..minor.."."..patch) end
 
 
         -- Migrate settings from version 1.1.1 to 1.2.0
         if (settings.MSG_TIME ~= nil and settings.MSG_TIME > 2) then
-            if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. default_settings.MSG_TIME) end
+            if settings.DEBUG then Turbine.Shell.WriteLine("[Settings] Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. default_settings.MSG_TIME) end
             settings.MSG_TIME = default_settings.MSG_TIME;
         end
         if (settings.MSG_TIME_MAX == nil) then
@@ -181,7 +181,7 @@ function CheckSettings(loadedSettings)
         if (tonumber(major)<2 and tonumber(minor)<7) then
             settings.MSG_TIME_MIN = default_settings.MSG_TIME_MIN;
             settings.MSG_TIME_HIGHLIGHT = default_settings.MSG_TIME_HIGHLIGHT;
-            if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Migrated settings from 1.6.0 to 1.7.0") end
+            if settings.DEBUG then Turbine.Shell.WriteLine("[Settings] Migrated settings from 1.6.0 to 1.7.0") end
         end
         
         -- End of migrations
@@ -192,7 +192,7 @@ function CheckSettings(loadedSettings)
         settings = default_settings;
     end
 
-    if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: checked") end
+    if settings.DEBUG then Turbine.Shell.WriteLine("[Settings] checked") end
 
     return settings;
 end
@@ -202,9 +202,9 @@ end
 function LoadSettings()
     -- Always load account settings
     SETTINGS = CheckSettings(PatchDataLoad(Turbine.DataScope.Account, settingsFileName));
-    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded account settings") end
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Settings] Loaded account settings") end
     
-    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Loaded character settings") end
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Settings] Loaded character settings") end
     
     
     -- If account wide settings are disabled, load character settings
@@ -220,11 +220,11 @@ function SaveSettings()
 
     -- Always save settings for the character and account
     PatchDataSave(Turbine.DataScope.Character, settingsFileName, SETTINGS);
-    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Saved character settings") end
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Settings] Saved character settings") end
     
     -- Save account settings
     PatchDataSave(Turbine.DataScope.Account, settingsFileName, SETTINGS);
-    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("> Settings: Saved account settings") end
+    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Settings] Saved account settings") end
 end
 
 -- Register the function to save settings when the plugin is unloaded
