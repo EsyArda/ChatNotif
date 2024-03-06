@@ -10,20 +10,20 @@ function GetStringsFromLanguage(language)
         options_timer_label_2 = "s per character",
         options_account_wide_checkBox = "Save settings account wide (update on logout)",
         options_commands_label = "Type '/cn help' in the chat window to see all commands",
-        options_font_size_label = "[In a future update] Select font size",
+        options_font_size_label = "Select font size",
     }
 
     local STRINGS_ENGB = {
         options_lock_position_label = "Lock window position",
         options_channels_label = "Select channels",
         options_customize_colors_button = "Clic to customize colours",
-        options_reset_colors_button = "Reset colors to default",
+        options_reset_colors_button = "Reset colours to default",
         options_reset_colors_button_confirm = "Clic again to confirm",
         options_timer_label_1 = "Notification duration: ",
         options_timer_label_2 = "s per character",
         options_account_wide_checkBox = "Save settings account wide (update on logout)",
         options_commands_label = "Type '/cn help' in the chat window to see all commands",
-        options_font_size_label = "[In a future update] Select font size",
+        options_font_size_label = " Select font size",
     }
 
     local STRINGS_FR = {
@@ -36,10 +36,10 @@ function GetStringsFromLanguage(language)
         options_timer_label_2 = "s par caractère",
         options_account_wide_checkBox = "Sauvegarder les paramètres pour le compte",
         options_commands_label = "Entrez '/cn help' dans le chat pour voir la liste des commandes.",
-        options_font_size_label = "[Dans une prochaine mise à jour] Sélectionez la taille du texte",
+        options_font_size_label = "Sélectionez la taille du texte",
     }
 
-    local STRINGS_DE = {
+    local STRINGS_DE = { -- Translated using DeepL
         options_lock_position_label = "Fensterposition sperren",
         options_channels_label = "Kanäle auswählen",
         options_customize_colors_button = "Klicken Sie, um die Farben anzupassen",
@@ -49,13 +49,13 @@ function GetStringsFromLanguage(language)
         options_timer_label_2 = "s pro Zeichen",
         options_account_wide_checkBox = "Einstellungen kontoweit speichern",
         options_commands_label = "Tippe '/cn help' in das Chat-Fenster, um alle Befehle zu sehen",
-        options_font_size_label = "[In einem zukünftigen Update] Schriftgröße auswählen",
+        options_font_size_label = "Schriftgröße auswählen",
     }
 
     if language == Turbine.Language.French then
         return STRINGS_FR
     elseif language == Turbine.Language.German then
-        return STRINGS_DE
+        return STRINGS_EN -- STRINGS_DE
     elseif language == Turbine.Language.EnglishGB then
         return STRINGS_ENGB
     else
