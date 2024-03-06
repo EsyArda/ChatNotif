@@ -155,7 +155,9 @@ function CheckSettings(loadedSettings)
             minor = "6";
             patch = "0";
         end
-        
+        if settings.DEBUG then Turbine.Shell.WriteLine("> Version "..major.."."..minor.."."..patch) end
+
+
         -- Migrate settings from version 1.1.1 to 1.2.0
         if (settings.MSG_TIME ~= nil and settings.MSG_TIME > 2) then
             if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Transition of MSG_TIME from " .. settings.MSG_TIME .. " to " .. default_settings.MSG_TIME) end
@@ -176,9 +178,10 @@ function CheckSettings(loadedSettings)
         end
 
         -- Migrate setttings from 1.6.0 to 1.7.0
-        if (tonumber(major)<2 and tonumber(minor)<=7) then
+        if (tonumber(major)<2 and tonumber(minor)<7) then
             settings.MSG_TIME_MIN = default_settings.MSG_TIME_MIN;
             settings.MSG_TIME_HIGHLIGHT = default_settings.MSG_TIME_HIGHLIGHT;
+            if settings.DEBUG then Turbine.Shell.WriteLine("> Settings: Migrated settings from 1.6.0 to 1.7.0") end
         end
         
         -- End of migrations
