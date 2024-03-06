@@ -2,6 +2,7 @@
 
 import "Esy.ChatNotif.Timer";
 import "Esy.ChatNotif.Callback";
+import "Esy.ChatNotif.Utils";
 
 -- NotifWindow class displays a window with a given message
 NotifWindow = class(Turbine.UI.Window); -- Inherit from Turbine.UI.Window
@@ -87,6 +88,18 @@ function NotifWindow:Constructor()
     end
     -- Set the TimeReached event handler to clear the message when the timer ends
     AddCallback(DisplayTimer, "TimeReached", clearMsg);
+    
+    -- Highligh timer
+    self.msgDuration = 0;
+    self.msgColor = SETTINGS.DEFAULT_COLOR;
+    self.msgText = "";
+    HighlightTimer = Timer();
+    local highlightCallback = function()
+        self:DisplayMsg(self.msgText, math.max(0, self.msgDuration), self.msgColor);
+    end
+    AddCallback(HighlightTimer, "TimeReached", highlightCallback);
+
+    
     -- On message received
     self.ChatReceived(self);
 end
@@ -106,10 +119,12 @@ end
 
 -- Displays a message for a given duration
 function NotifWindow:DisplayMsg(msg, duration, color)
-    if (duration ~= 0) then DisplayTimer:SetTime(duration, false) end
+    if (duration ~=nil and duration > 0) then DisplayTimer:SetTime(duration, false) end
     self.Anounce:SetText(msg);
     if (color ~= nil) then self.Anounce:SetForeColor(color) end
     self.Anounce:SetVisible(true);
+
+    if SETTINGS.DEBUG and duration ~= nil and duration > 0 then Turbine.Shell.WriteLine("NotifWindow:DisplayMsg(\"" .. tostring(msg) .."\", " .. tostring(duration) ..")") end
 end
 
 -- Check if the message should be displayed given the current settings
@@ -125,7 +140,9 @@ function NotifWindow:ChatReceived()
             local msg;
             if SETTINGS.DEBUG then msg = "[" .. args.ChatType .. "] " .. args.Message;
             else msg = args.Message end
-            local duration = math.min(SETTINGS.MSG_TIME * #msg, SETTINGS.MSG_TIME_MAX);
+            local duration = Clamp(SETTINGS.MSG_TIME * #msg, SETTINGS.MSG_TIME_MIN, SETTINGS.MSG_TIME_MAX); -- Capped between min and max duration
+            
+            -- Color
             local color;
             if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[args.ChatType] ~= nil then
                 color = SETTINGS.CHANNELS_COLORS[args.ChatType];
@@ -133,7 +150,17 @@ function NotifWindow:ChatReceived()
             else
                 color = SETTINGS.DEFAULT_COLOR;
             end
-            self:DisplayMsg(msg, duration, color);
+
+            -- Highlight
+            if SETTINGS.MSG_TIME_HIGHLIGHT > 0 then
+                self:DisplayMsg(msg, SETTINGS.MSG_TIME_HIGHLIGHT, Turbine.UI.Color.Orange);
+                self.msgDuration = duration - SETTINGS.MSG_TIME_HIGHLIGHT;
+                self.msgColor = color;
+                self.msgText = msg;
+                HighlightTimer:SetTime(SETTINGS.MSG_TIME_HIGHLIGHT, false);
+            else
+                self:DisplayMsg(msg, duration, color);
+            end
         end
     end
 end
