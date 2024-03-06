@@ -11,6 +11,7 @@ function GetStringsFromLanguage(language)
         options_account_wide_checkBox = "Save settings account wide (update on logout)",
         options_commands_label = "Type '/cn help' in the chat window to see all commands",
         options_font_size_label = "Select font size",
+        options_enable_highlight = "Enable message highlight"
     }
 
     local STRINGS_ENGB = {
@@ -24,6 +25,7 @@ function GetStringsFromLanguage(language)
         options_account_wide_checkBox = "Save settings account wide (update on logout)",
         options_commands_label = "Type '/cn help' in the chat window to see all commands",
         options_font_size_label = " Select font size",
+        options_enable_highlight = "Enable message highlight"
     }
 
     local STRINGS_FR = {
@@ -37,6 +39,7 @@ function GetStringsFromLanguage(language)
         options_account_wide_checkBox = "Sauvegarder les paramètres pour le compte",
         options_commands_label = "Entrez '/cn help' dans le chat pour voir la liste des commandes.",
         options_font_size_label = "Sélectionez la taille du texte",
+        options_enable_highlight = "Surbrillance des messages"
     }
 
     local STRINGS_DE = { -- Translated using DeepL
@@ -50,6 +53,7 @@ function GetStringsFromLanguage(language)
         options_account_wide_checkBox = "Einstellungen kontoweit speichern",
         options_commands_label = "Tippe '/cn help' in das Chat-Fenster, um alle Befehle zu sehen",
         options_font_size_label = "Schriftgröße auswählen",
+        options_enable_highlight = "Hervorhebung von Nachrichten einschalten"
     }
 
     if language == Turbine.Language.French then
