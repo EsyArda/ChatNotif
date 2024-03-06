@@ -8,3 +8,7 @@ function RecursivePrintTable(k, v)
         Turbine.Shell.WriteLine("["..tostring(k).."] = "..tostring(v))
     end
 end
+
+function Clamp(value, min, max)
+    return math.max(math.min(value, max), min)
+end
