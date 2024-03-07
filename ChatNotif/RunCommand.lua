@@ -71,7 +71,7 @@ function RunCommand:ToggleDebug(newState)
     elseif (newState == "off") then
         SETTINGS.DEBUG = false;
     end
-    Turbine.Shell.WriteLine("Debug is now " .. newState .. ". Please reload the UI.");
+    Turbine.Shell.WriteLine("Debug is now " .. newState .. ". Please reload the Plugin.");
 end
 
 -- Add a channel from the list

@@ -34,23 +34,8 @@ Type `/cn help` to see all available commands.
 
 ## Planned features
 
-- Options
-  - [x] ~~Select channels~~
-  - [x] ~~Lock / unlock option~~
-    - [x] ~~Change the opacity of the window~~
-    - [x] ~~Enable mouse drag to move the window~~
-  - [x] ~~Set notification duration~~
-  - [x] ~~Sort channels in the channel list~~
-  - [x] ~~Save settings by character or account~~
-  - [x] ~~Customize and reset font colour~~
-  - [ ] Set font size
-  - [ ] Option to hide messages sent by the player
-- Notification window
-  - [x] ~~Message duration based on the length of the text.~~
-  - [x] ~~Don't display notifications if UI is hidden~~
-  - [x] ~~Font color based on chat types~~
-  - [ ] Messages fade in and out
-- Commands
-  - [x] ~~Better debug messages~~
-- [x] ~~New logo~~
+- [ ] Option to set font size
+- [ ] Option to hide messages sent by the player
+- [ ] Messages fade in and out
+- [ ] Highlight messages when they appear
 - [ ] Translate the plugin into French and German
