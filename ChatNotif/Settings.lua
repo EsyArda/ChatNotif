@@ -8,7 +8,7 @@ local default_settings = {
     ["MSG_TIME"] = 0.18; -- seconds per character
     ["MSG_TIME_MAX"] = 10; -- seconds
     ["MSG_TIME_MIN"] = 0.8; -- seconds
-    ["MSG_TIME_HIGHLIGHT"] = 0.5; -- seconds
+    ["MSG_TIME_HIGHLIGHT"] = 0.4; -- seconds
     ["CHANNELS_ENABLED"] = {
         [6] = true, -- Tell
         [11] = true, -- Fellowship
@@ -187,7 +187,7 @@ function CheckSettings(loadedSettings)
         -- End of migrations
         settings.VERSION = default_settings.VERSION
 
-        settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
+        settings.DEFAULT_COLOR = Turbine.UI.Color(settings.DEFAULT_COLOR.A, settings.DEFAULT_COLOR.R, settings.DEFAULT_COLOR.G, settings.DEFAULT_COLOR.B);
     else
         settings = default_settings;
     end

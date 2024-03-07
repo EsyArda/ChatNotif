@@ -124,7 +124,7 @@ function NotifWindow:DisplayMsg(msg, duration, color)
     if (color ~= nil) then self.Anounce:SetForeColor(color) end
     self.Anounce:SetVisible(true);
 
-    if SETTINGS.DEBUG and duration ~= nil and duration > 0 then Turbine.Shell.WriteLine("[NotifWindow] DisplayMsg(\"" .. tostring(msg) .."\", " .. tostring(duration) ..")") end
+    if SETTINGS.DEBUG and duration ~= nil and duration > 0 then Turbine.Shell.WriteLine("[NotifWindow] DisplayMsg(\"" .. tostring(msg) .."\", " .. tostring(duration) .."s, [".. tostring(color.A)..", ".. tostring(color.R) ..", ".. tostring(color.G) ..", ".. tostring(color.B) .. "])") end
 end
 
 -- Check if the message should be displayed given the current settings
@@ -138,8 +138,10 @@ function NotifWindow:ChatReceived()
     Turbine.Chat.Received = function(sender, args)
         if (self:ShouldDisplay(args)) then
             local msg;
-            if SETTINGS.DEBUG then msg = "[" .. args.ChatType .. "] " .. args.Message;
-            else msg = args.Message end
+            -- args.Message:sub(1, -2) Text message without the last character (a new line)
+            if SETTINGS.DEBUG then msg = "[" .. args.ChatType .. "] " .. args.Message:sub(1, -2);
+            else msg = args.Message:sub(1, -2) end
+            
             local duration = Clamp(SETTINGS.MSG_TIME * #msg, SETTINGS.MSG_TIME_MIN, SETTINGS.MSG_TIME_MAX); -- Capped between min and max duration
             
             -- Color
@@ -151,9 +153,11 @@ function NotifWindow:ChatReceived()
                 color = SETTINGS.DEFAULT_COLOR;
             end
 
+            if SETTINGS.DEBUG then Turbine.Shell.WriteLine("DEFAULT COLOR [".. tostring(color.A)..", ".. tostring(color.R) ..", ".. tostring(color.G) ..", ".. tostring(color.B) .. "])") end
+
             -- Highlight
             if SETTINGS.MSG_TIME_HIGHLIGHT > 0 then
-                self:DisplayMsg(msg, SETTINGS.MSG_TIME_HIGHLIGHT, Turbine.UI.Color.Orange);
+                self:DisplayMsg(msg, SETTINGS.MSG_TIME_HIGHLIGHT, Turbine.UI.Color(1,1,1,1));
                 self.msgDuration = duration - SETTINGS.MSG_TIME_HIGHLIGHT;
                 self.msgColor = color;
                 self.msgText = msg;
