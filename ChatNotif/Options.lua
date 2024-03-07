@@ -2,6 +2,7 @@
 
 import "Esy.ChatNotif.ColorPicker";
 import "Esy.ChatNotif.Language";
+import "Esy.ChatNotif.Utils";
 
 function OptionsControl(stringsTranslated)
     -- Pixel values
@@ -19,6 +20,11 @@ function OptionsControl(stringsTranslated)
 
     Options = Turbine.UI.Control();
     Turbine.Plugin.GetOptionsPanel = function(self) return Options; end
+
+
+    local invertedTranslatedChannels = InvertTable(stringsTranslated.channels) -- ["Say"] = 5
+    
+
 
     if SETTINGS.DEBUG then Options:SetBackColor(Turbine.UI.Color.DarkSlateGray) end
 
@@ -103,20 +109,20 @@ function OptionsControl(stringsTranslated)
     -- Chat types
     yPosition = channelsLabel:GetTop() + channelsLabel:GetHeight();
     local channelsCheckbox = {};
-    
+
     -- Table with key (the chat name) sorted [1,2,3,... -> Admin,Advancement,Death,...]
     local sortedKeys = {}
-    for key in pairs(Turbine.ChatType) do
-        if (type(key) == "string") then
-            table.insert(sortedKeys, key)
+    for name, number in pairs(Turbine.ChatType) do
+        if (type(name) == "string") then
+            table.insert(sortedKeys, stringsTranslated.channels[number]) -- Sort alphabetically
         end
     end
     -- Sort by chat name
     table.sort(sortedKeys)
 
     -- name is the name of the chat type and chatTypeNames[name] is it's number
-    for _, name in pairs(sortedKeys) do
-        if(type(Turbine.ChatType[name]) == "number") then
+    for key, name in pairs(sortedKeys) do
+        if(type(invertedTranslatedChannels[name]) == "number") then
             -- Channel checkbox
             channelsCheckbox[name] = Turbine.UI.Lotro.CheckBox();
             channelsCheckbox[name]:SetParent(Options);
@@ -124,24 +130,24 @@ function OptionsControl(stringsTranslated)
             channelsCheckbox[name]:SetPosition(leftMargin, yPosition);
             channelsCheckbox[name]:SetFont(corpsFont);
             local color = SETTINGS.DEFAULT_COLOR;
-            if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]] ~= nil then
-                color = SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]];
+            if SETTINGS.CHANNELS_COLORS ~= nil and SETTINGS.CHANNELS_COLORS[invertedTranslatedChannels[name]] ~= nil then
+                color = SETTINGS.CHANNELS_COLORS[invertedTranslatedChannels[name]];
                 color = Turbine.UI.Color(color.R, color.G, color.B);
             end
             channelsCheckbox[name]:SetForeColor(color);
             local label;
-            if SETTINGS.DEBUG then label = Turbine.ChatType[name] .. " - " .. name else label = name end;
+            if SETTINGS.DEBUG then label = invertedTranslatedChannels[name] .. " - " .. name else label = name end;
             channelsCheckbox[name]:SetText(label);
             if SETTINGS.DEBUG then channelsCheckbox[name]:SetBackColor(Turbine.UI.Color.BlueViolet) end
 
-            channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]));
+            channelsCheckbox[name]:SetChecked(ExistsInSet(SETTINGS.CHANNELS_ENABLED, invertedTranslatedChannels[name]));
             channelsCheckbox[name].CheckedChanged = function(sender, args)
                 if channelsCheckbox[name]:IsChecked() then
                     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Options] Added " .. name) end
-                    AddToSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
+                    AddToSet(SETTINGS.CHANNELS_ENABLED, invertedTranslatedChannels[name]);
                 else
                     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Options] Removed " .. name) end
-                    RemoveFromSet(SETTINGS.CHANNELS_ENABLED, Turbine.ChatType[name]);
+                    RemoveFromSet(SETTINGS.CHANNELS_ENABLED, invertedTranslatedChannels[name]);
                 end
             end
 
@@ -172,7 +178,7 @@ function OptionsControl(stringsTranslated)
             -- end
             channelCheckbox.colorPicker.ColorChanged=function(sender,args)
                 channelCheckbox:SetForeColor(args.Color);
-                SETTINGS.CHANNELS_COLORS[Turbine.ChatType[name]] = args.Color;
+                SETTINGS.CHANNELS_COLORS[invertedTranslatedChannels[name]] = args.Color;
             end
         end
     end
@@ -202,8 +208,8 @@ function OptionsControl(stringsTranslated)
             -- Update the option label colors
             local color;
             for name, channelCheckbox in pairs(channelsCheckbox) do
-                if default_settings.CHANNELS_COLORS ~= nil and default_settings.CHANNELS_COLORS[Turbine.ChatType[name]] ~= nil then
-                    color = default_settings.CHANNELS_COLORS[Turbine.ChatType[name]];
+                if default_settings.CHANNELS_COLORS ~= nil and default_settings.CHANNELS_COLORS[invertedTranslatedChannels[name]] ~= nil then
+                    color = default_settings.CHANNELS_COLORS[invertedTranslatedChannels[name]];
                     color = Turbine.UI.Color(color.R, color.G, color.B)
                 else
                     color = SETTINGS.DEFAULT_COLOR;
