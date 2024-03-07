@@ -4,7 +4,7 @@ import "Esy.ChatNotif.VindarPatch";
 
 -- Default settings
 local default_settings = {
-    ["VERSION"] = "1.7.0-alpha";
+    ["VERSION"] = "1.7.0";
     ["MSG_TIME"] = 0.18; -- seconds per character
     ["MSG_TIME_MAX"] = 10; -- seconds
     ["MSG_TIME_MIN"] = 0.8; -- seconds
