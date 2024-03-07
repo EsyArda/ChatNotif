@@ -13,7 +13,7 @@ function GetStringsFromLanguage(language)
         options_font_size_label = "Select font size",
         options_enable_highlight = "Enable message highlight",
         channels = {
-            [0] = "Undef",
+            [0] = "Undefined",
             [1] = "Error",
             [3] = "Admin",
             [4] = "Standard",
@@ -64,7 +64,7 @@ function GetStringsFromLanguage(language)
         options_font_size_label = " Select font size",
         options_enable_highlight = "Enable message highlight",
         channels = {
-            [0] = "Undef",
+            [0] = "Undefined",
             [1] = "Error",
             [3] = "Admin",
             [4] = "Standard",
@@ -166,7 +166,7 @@ function GetStringsFromLanguage(language)
         options_font_size_label = "Schriftgröße auswählen",
         options_enable_highlight = "Hervorhebung von Nachrichten einschalten",
         channels = {
-            [0] = "Undef",
+            [0] = "Undefined",
             [1] = "Error",
             [3] = "Admin",
             [4] = "Standard",
