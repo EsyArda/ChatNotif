@@ -12,7 +12,7 @@ A simple LOTRO plugin to display chat messages larger on your screen.
 
 ## Features
 
-**NEW: Complete french translation! There is now a highlight feature to help you see new messages!**
+**NEW: Complete French translation! There is now a highlight feature to help you see new messages!**
 
 Displays simple notification for chat messages.
 
@@ -39,9 +39,9 @@ Type `/cn help` to see all available commands.
 
 ## Versions
 
-* Version 1.7.0: Complete french translation, highlight text messages, default chat colors matching the game, corrected channel names to match the game options, new minimum and maximum display time and better debug messages.
+* Version 1.7.0: Complete French translation, highlight text messages, default chat colors matching the game, corrected channel names to match the game options, new minimum and maximum display time and better debug messages.
 * Version 1.6.0: It is now possible to change channel colors!
-* Version 1.5.0: Added a new option to save an load settings account wide.
+* Version 1.5.0: Added a new option to save and load settings account wide.
 * Version 1.4.1-1: Corrected the LotroInterface download file.
 * Version 1.4.1: The icon is now displayed correctly.
 * Version 1.4.0: New icon added, the license is included in the LotroInterface release.
