@@ -211,12 +211,11 @@ function LoadSettings()
     SETTINGS = CheckSettings(PatchDataLoad(Turbine.DataScope.Account, settingsFileName));
     if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Settings] Loaded account settings") end
     
-    if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Settings] Loaded character settings") end
-    
     
     -- If account wide settings are disabled, load character settings
     if not SETTINGS.ACCOUNT_WIDE_SETTINGS then
         SETTINGS = CheckSettings(PatchDataLoad(Turbine.DataScope.Character, settingsFileName));
+        if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Settings] Loaded character settings") end
     end
 
     return SETTINGS;
