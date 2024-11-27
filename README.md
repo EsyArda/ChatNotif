@@ -59,5 +59,5 @@ Type `/cn help` to see all available commands.
 - [ ] Option to set font size
 - [ ] Option to hide messages sent by the player
 - [ ] Messages fade in and out
-- [ ] Highlight messages when they appear
-- [ ] Translate the plugin into German
+- [x] Highlight messages when they appear
+- [x] Translate the plugin into French and German
