@@ -130,7 +130,11 @@ end
 -- Check if the message should be displayed given the current settings
 function NotifWindow:ShouldDisplay(message)
     -- TODO Check if UI is hidden
-    return SETTINGS.CHANNELS_ENABLED[message.ChatType];
+    local shouldDisplay = SETTINGS.CHANNELS_ENABLED[message.ChatType];
+    --local name = Turbine.Gameplay.LocalPlayer.GetInstance():GetName(); -- Don't forget to import "Turbine.Gaemplay";
+    --[11/27 11:15:53 PM] [To Kinship] test
+    --[11/27 11:16:25 PM] You say, 'a'
+    return shouldDisplay;
 end
 
 -- On message received
@@ -153,7 +157,7 @@ function NotifWindow:ChatReceived()
                 color = SETTINGS.DEFAULT_COLOR;
             end
 
-            if SETTINGS.DEBUG then Turbine.Shell.WriteLine("DEFAULT COLOR [".. tostring(color.A)..", ".. tostring(color.R) ..", ".. tostring(color.G) ..", ".. tostring(color.B) .. "])") end
+            -- if SETTINGS.DEBUG then Turbine.Shell.WriteLine("DEFAULT COLOR [".. tostring(color.A)..", ".. tostring(color.R) ..", ".. tostring(color.G) ..", ".. tostring(color.B) .. "])") end
 
             -- Highlight
             if SETTINGS.MSG_TIME_HIGHLIGHT > 0 then
