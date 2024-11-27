@@ -224,6 +224,22 @@ function OptionsControl(stringsTranslated)
     yPosition = yPosition + resetColorsButton:GetHeight() + yOffset;
 
 
+    -- ##### Display my messages #####
+    local showPersonnalMessagesCheckBox = Turbine.UI.Lotro.CheckBox();
+    showPersonnalMessagesCheckBox:SetParent(Options);
+    showPersonnalMessagesCheckBox:SetSize(boxWidth, 2*boxHeight);
+    showPersonnalMessagesCheckBox:SetPosition(0, yPosition);
+    showPersonnalMessagesCheckBox:SetFont(headerFont);
+    showPersonnalMessagesCheckBox:SetText(stringsTranslated.options_show_personnal_messages);
+    if SETTINGS.DEBUG then showPersonnalMessagesCheckBox:SetBackColor(Turbine.UI.Color.MediumPurple) end
+    showPersonnalMessagesCheckBox:SetChecked(SETTINGS.SHOW_PERSONNAL_MESSAGES);
+    showPersonnalMessagesCheckBox.CheckedChanged = function(sender, args)
+        SETTINGS.SHOW_PERSONNAL_MESSAGES = showPersonnalMessagesCheckBox:IsChecked();
+         if SETTINGS.DEBUG then Turbine.Shell.WriteLine("[Options] Show personnal messages set to " .. tostring(SETTINGS.SHOW_PERSONNAL_MESSAGES)) end
+
+    end
+    yPosition = yPosition + showPersonnalMessagesCheckBox:GetHeight() + yOffset;
+
 
     -- ##### Account wide settings #####
     local accountWideCheckBox = Turbine.UI.Lotro.CheckBox();

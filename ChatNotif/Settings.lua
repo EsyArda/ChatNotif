@@ -132,7 +132,8 @@ local default_settings = {
 			["B"] = 0.27
 		}
     };
-    ["DEFAULT_COLOR"] = Turbine.UI.Color(1, 0.82, 0.82, 0.82)
+    ["DEFAULT_COLOR"] = Turbine.UI.Color(1, 0.82, 0.82, 0.82);
+    ["SHOW_PERSONNAL_MESSAGES"] = false;
 };
 
 -- Actual settings for the character
@@ -182,6 +183,12 @@ function CheckSettings(loadedSettings)
             settings.MSG_TIME_MIN = default_settings.MSG_TIME_MIN;
             settings.MSG_TIME_HIGHLIGHT = default_settings.MSG_TIME_HIGHLIGHT;
             if settings.DEBUG then Turbine.Shell.WriteLine("[Settings] Migrated settings from 1.6.0 to 1.7.0") end
+        end
+
+        -- Migration from 1.7.0 to 1.8.0
+        if (tonumber(major)<2 and tonumber(minor)<8) then
+            settings.SHOW_PERSONNAL_MESSAGES = default_settings.SHOW_PERSONNAL_MESSAGES;
+            if settings.DEBUG then Turbine.Shell.WriteLine("[Settings] Migrated settings from 1.7.0 to 1.8.0") end
         end
         
         -- End of migrations

@@ -48,7 +48,8 @@ function GetStringsFromLanguage(language)
             [40] = "User Chat 6",
             [41] = "User Chat 7",
             [42] = "User Chat 8",
-        }
+        },
+        options_show_personnal_messages = "Show personnal messages"
     }
 
     local STRINGS_ENGB = {
@@ -99,7 +100,8 @@ function GetStringsFromLanguage(language)
             [40] = "User Chat 6",
             [41] = "User Chat 7",
             [42] = "User Chat 8",
-        }
+        },
+        options_show_personnal_messages = "Show personnal messages"
     }
 
     local STRINGS_FR = {
@@ -150,7 +152,8 @@ function GetStringsFromLanguage(language)
             [40] = "Chat Utilisateur 6",
             [41] = "Chat Utilisateur 7",
             [42] = "Chat Utilisateur 8",
-        }
+        },
+        options_show_personnal_messages = "Afficher mes messages"
     }
 
     local STRINGS_DE = { -- Translated using DeepL
@@ -201,7 +204,8 @@ function GetStringsFromLanguage(language)
             [40] = "User Chat 6",
             [41] = "User Chat 7",
             [42] = "User Chat 8",
-        }
+        },
+        options_show_personnal_messages = "Show personnal messages"
     }
 
     if language == Turbine.Language.French then
